@@ -1,0 +1,1152 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><link rel="stylesheet" type="text/css" href="rtwreport.css" /><script language="JavaScript" type="text/javascript" src="rtwshrink.js"></script><script>function postParentWindowMessage(message) {window.parent.postMessage(message, "*");}</script><style> h3 { margin-bottom: 1ex; } h4.function {   font-size: larger; font-weight: normal;   color: #c05709;	margin-bottom: 0ex; } .description {	border-style: none;	color: DimGray; } .footnote { margin-top: 0.5ex; font-size: small; color: DimGray;} a:link { color: #0076a8 } a:visited, a:hover { color: #004b87 } ul.services { margin-top: 0.5ex; } .include { color: #992211 } a.include:link { color:inherit; text-decoration: none } a.include:hover { text-decoration: underline } a.fcn:link { color:inherit; text-decoration: none } a.fcn:hover { text-decoration: underline } code.usage { white-space: pre-wrap; } .programlisting {   margin-left: 4ex; margin-right: 4ex;   margin-top: 2ex;  margin-bottom: 2ex; } .tooltip { position: relative; display: inline-block; } .tooltip .tooltip-text {   visibility: hidden;   position: absolute;   top: 110%;   left: 0;   background-color: white;   z-index: 1;   box-shadow: 5px 5px 10px 5px Gainsboro;   border-radius: 10px;   padding: 10px 15px 0px; } .tooltip:hover .tooltip-text { visibility: visible; } .tooltip-text .footnote { white-space: nowrap;} </style><title>
+Code Interface Report for process_PIConstrained
+</title>
+
+</head>
+<body>
+<h1>
+Code Interface Report for process_PIConstrained
+</h1>
+<div>
+
+</div>
+<div id="table_of_contents">
+<h3>
+Table of Contents
+</h3>
+<ol>
+<li>
+<a href="#sec_introduction" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_001_control'), 'rtwIdDataInterface_table_001')">
+Introduction
+</a>
+
+</li>
+<li>
+<span>
+<a href="#sec_execution" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Function Interfaces
+</a>
+<ul>
+<li>
+<a href="#sec_initialize_functions" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Initialize Functions
+</a>
+
+</li>
+<li>
+<a href="#sec_terminate_functions" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Terminate Functions
+</a>
+
+</li>
+<li>
+<a href="#sec_periodic_functions" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Periodic Functions
+</a>
+
+</li>
+<li>
+<a href="#sec_aperiodic_functions" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Aperiodic Functions
+</a>
+
+</li>
+
+</ul>
+</span>
+
+</li>
+<li>
+<span>
+<a href="#sec_data_interfaces" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Data Interfaces
+</a>
+<ul>
+<li>
+<a href="#sec_inports" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Inports
+</a>
+
+</li>
+<li>
+<a href="#sec_outports" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Outports
+</a>
+
+</li>
+<li>
+<a href="#sec_interface_parameters" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Parameters
+</a>
+
+</li>
+<li>
+<a href="#sec_data_stores" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Internal data
+</a>
+
+</li>
+
+</ul>
+</span>
+
+</li>
+
+</ol>
+
+</div>
+<h2 name="sec_Introduction" id="sec_introduction">
+1. Introduction <span title="Click to shrink or expand section" style="cursor:pointer;font-weight:normal;" id="rtwIdDataInterface_table_001_control" onclick ="if (rtwTableShrink) rtwTableShrink(window.document, this, 'rtwIdDataInterface_table_001', false)"><span class="shrink-button">[<u>show</u>]</span></span>
+</h2>
+<table width="100%" style="display: none" name="rtwIdDataInterface_table_001" id="rtwIdDataInterface_table_001" border="0">
+<tr>
+<td align="left" valign="top">
+<p>
+The code generator produced a data code interface for the model. The code interface report summarizes the interface code for model callable entry-point functions and data interface elements, such as root-level inports and outports.
+</p>
+
+</td>
+
+</tr>
+
+</table>
+<h2 name="sec_Function_Interfaces" id="sec_execution">
+2. Function Interfaces <span title="Click to shrink or expand section" style="cursor:pointer;font-weight:normal;" id="rtwIdDataInterface_table_002_control" onclick ="if (rtwTableShrink) rtwTableShrink(window.document, this, 'rtwIdDataInterface_table_002', false)"><span class="shrink-button">[<u>hide</u>]</span></span>
+</h2>
+<table width="100%" name="rtwIdDataInterface_table_002" id="rtwIdDataInterface_table_002" border="0">
+<tr>
+<td align="left" valign="top">
+External code initiates execution of the generated code by calling entry-point functions generated for the model. The type of function code that the code generator produces for a model depends on the modelling style and periodic rates represented in the model. For more information, see <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'legacyMCall', expr:'helpview(fullfile(docroot,\'toolbox\',\'ecoder\',\'helptargets.map\'),\'model_entry_points\')'})" >Configure Generated C Function Interface for Model Entry-Point Functions</a><br><br>
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="top">
+<section id="sec_initialize_functions">
+<h3>
+2.1 Initialize Functions
+</h3>
+<p>
+Initialize entry-point functions implement startup behavior. In a model, Initialize Function blocks represent startup behavior explicitly.
+</p>
+<div id="fcn_process_PIConstrained_initialize">
+<h4 class="function">
+process_PIConstrained_initialize
+</h4>
+<span class="description">
+Initialization entry point of generated code
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'process_PIConstrained.h'})" class="include">process_PIConstrained.h</a>"</span>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'process_PIConstrained_initialize'})" class="fcn">process_PIConstrained_initialize</a>(void)</code>
+</div>
+</div>
+</section>
+<section id="sec_terminate_functions">
+<h3>
+2.2 Terminate Functions
+</h3>
+<p>
+Terminate entry-point functions implement shutdown behavior. In a model, Terminate Function blocks represent shutdown behavior explicitly.
+</p>
+<div id="fcn_process_PIConstrained_terminate">
+<h4 class="function">
+process_PIConstrained_terminate
+</h4>
+<span class="description">
+Termination entry point of generated code
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'process_PIConstrained.h'})" class="include">process_PIConstrained.h</a>"</span>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'process_PIConstrained_terminate'})" class="fcn">process_PIConstrained_terminate</a>(void)</code>
+</div>
+</div>
+</section>
+<section id="sec_periodic_functions">
+<h3>
+2.3 Periodic Functions
+</h3>
+<p>
+Periodic entry-point functions implement model behavior that occurs at a fixed sampling rate. For a rate-based model, the code generator produces a periodic entry-point function for each rate used in the model. In a function-call (export-function) model, Function Call Subsystem blocks that specify a sampling rate represent periodic functions.
+</p>
+<div id="fcn_process_PIConstrained_step">
+<h4 class="function">
+process_PIConstrained_step
+</h4>
+<span class="description">
+Output entry point of generated code. Must be called periodically, every 18 seconds. 
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'process_PIConstrained.h'})" class="include">process_PIConstrained.h</a>"</span>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'process_PIConstrained_step'})" class="fcn">process_PIConstrained_step</a>(void)</code>
+</div>
+</div>
+</section>
+<section id="sec_aperiodic_functions">
+<h3>
+2.4 Aperiodic Functions
+</h3>
+<p>
+Aperiodic (asynchronous) entry-point functions implement component behavior occurring asynchronously. In a function-call (export-function) model, Function Call Subsystem blocks that do not specify a sampling rate represent aperiodic functions.
+</p>
+<p>
+No aperiodic functions represented in model.
+</p>
+</section>
+
+</td>
+
+</tr>
+
+</table>
+<h2 name="sec_Data_Interfaces" id="sec_data_interfaces">
+3. Data Interfaces <span title="Click to shrink or expand section" style="cursor:pointer;font-weight:normal;" id="rtwIdDataInterface_table_003_control" onclick ="if (rtwTableShrink) rtwTableShrink(window.document, this, 'rtwIdDataInterface_table_003', false)"><span class="shrink-button">[<u>hide</u>]</span></span>
+</h2>
+<table width="100%" name="rtwIdDataInterface_table_003" id="rtwIdDataInterface_table_003" border="0">
+<tr>
+<td align="left" valign="top">
+A data code interface maps model data interface elements, such as root-level inports and outports, to storage classes. A storage class specifies the appearance and placement of data elements in the generated code. Storage classes apply direct-access data communication. The list of storage classes available for mapping is determined by the Embedded Coder Dictionary that is associated with the model. You map model interface elements to storage classes in the model code mappings.<br><br>
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="top">
+<section id="sec_inports">
+<h3>
+3.1 Inports
+</h3>
+Variables that are generated in the code based on storage class specifications for model root-level inports.<p>
+No inport is present in model.
+</p>
+</section>
+<section id="sec_outports">
+<h3>
+3.2 Outports
+</h3>
+Variables that are generated in the code based on storage class specifications for model root-level outports.<div id="fcn_process_PIConstrained_Y.L2">
+<h4 class="function">
+process_PIConstrained_Y.L2
+</h4>
+<span class="description">
+Output data for &lt;Root&gt;/L2
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T L2;
+  ...
+} process_PIConstrained_Y;</code>
+</div>
+</div>
+</section>
+<section id="sec_interface_parameters">
+<h3>
+3.3 Parameters
+</h3>
+Variables in the generated code that represent model parameters and model parameter arguments that are generated in the code based on a storage class specification and flagged to be tunable or not tunable while the model code executes in the target environment.<div id="fcn_process_PIConstrained_P.L2ProportionalGain_gain">
+<h4 class="function">
+process_PIConstrained_P.L2ProportionalGain_gain
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/L2 Proportional Gain
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T L2ProportionalGain_gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.L2Int_IC">
+<h4 class="function">
+process_PIConstrained_P.L2Int_IC
+</h4>
+<span class="description">
+Parameters for &lt;S5&gt;/L2Int
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T L2Int_IC;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation_UpperSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation_UpperSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation_UpperSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation_LowerSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation_LowerSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation_LowerSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.F1_Step_Time">
+<h4 class="function">
+process_PIConstrained_P.F1_Step_Time
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/F1_Step
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T F1_Step_Time;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.F1_Step_Y0">
+<h4 class="function">
+process_PIConstrained_P.F1_Step_Y0
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/F1_Step
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T F1_Step_Y0;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.F1_Step_YFinal">
+<h4 class="function">
+process_PIConstrained_P.F1_Step_YFinal
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/F1_Step
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T F1_Step_YFinal;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.F3_Value">
+<h4 class="function">
+process_PIConstrained_P.F3_Value
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/F3
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T F3_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain1_Gain">
+<h4 class="function">
+process_PIConstrained_P.Gain1_Gain
+</h4>
+<span class="description">
+Parameters for &lt;S6&gt;/Gain1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain1_Gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Constant1_Value">
+<h4 class="function">
+process_PIConstrained_P.Constant1_Value
+</h4>
+<span class="description">
+Parameters for &lt;S6&gt;/Constant1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Constant1_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.P100_Value">
+<h4 class="function">
+process_PIConstrained_P.P100_Value
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/P100
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T P100_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation2_UpperSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation2_UpperSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation2
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation2_UpperSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation2_LowerSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation2_LowerSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation2
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation2_LowerSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain_Gain">
+<h4 class="function">
+process_PIConstrained_P.Gain_Gain
+</h4>
+<span class="description">
+Parameters for &lt;S6&gt;/Gain
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain_Gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.X2Int_IC">
+<h4 class="function">
+process_PIConstrained_P.X2Int_IC
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/X2Int
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T X2Int_IC;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain3_Gain">
+<h4 class="function">
+process_PIConstrained_P.Gain3_Gain
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Gain3
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain3_Gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Constant_Value">
+<h4 class="function">
+process_PIConstrained_P.Constant_Value
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Constant
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Constant_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.P2Int_IC">
+<h4 class="function">
+process_PIConstrained_P.P2Int_IC
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/P2Int
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T P2Int_IC;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation1_UpperSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation1_UpperSat
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Saturation1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation1_UpperSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation1_LowerSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation1_LowerSat
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Saturation1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation1_LowerSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain2_Gain">
+<h4 class="function">
+process_PIConstrained_P.Gain2_Gain
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Gain2
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain2_Gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.T1_Value">
+<h4 class="function">
+process_PIConstrained_P.T1_Value
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/T1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T T1_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain5_Gain">
+<h4 class="function">
+process_PIConstrained_P.Gain5_Gain
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Gain5
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain5_Gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain6_Gain">
+<h4 class="function">
+process_PIConstrained_P.Gain6_Gain
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Gain6
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain6_Gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation_UpperSat_p">
+<h4 class="function">
+process_PIConstrained_P.Saturation_UpperSat_p
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Saturation
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation_UpperSat_p;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation_LowerSat_k">
+<h4 class="function">
+process_PIConstrained_P.Saturation_LowerSat_k
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Saturation
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation_LowerSat_k;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation4_UpperSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation4_UpperSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation4
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation4_UpperSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation4_LowerSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation4_LowerSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation4
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation4_LowerSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.F2_Value">
+<h4 class="function">
+process_PIConstrained_P.F2_Value
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/F2
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T F2_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.F200_Value">
+<h4 class="function">
+process_PIConstrained_P.F200_Value
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/F200
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T F200_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.FeedbackInt_IC">
+<h4 class="function">
+process_PIConstrained_P.FeedbackInt_IC
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/FeedbackInt
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T FeedbackInt_IC;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.L2SetPoint_Time">
+<h4 class="function">
+process_PIConstrained_P.L2SetPoint_Time
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/L2 Set Point
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T L2SetPoint_Time;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.L2SetPoint_Y0">
+<h4 class="function">
+process_PIConstrained_P.L2SetPoint_Y0
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/L2 Set Point
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T L2SetPoint_Y0;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.L2SetPoint_YFinal">
+<h4 class="function">
+process_PIConstrained_P.L2SetPoint_YFinal
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/L2 Set Point
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T L2SetPoint_YFinal;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.T200_Value">
+<h4 class="function">
+process_PIConstrained_P.T200_Value
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/T200
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T T200_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Ti_Gain">
+<h4 class="function">
+process_PIConstrained_P.Ti_Gain
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/Ti 
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Ti_Gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Constant_Value_c">
+<h4 class="function">
+process_PIConstrained_P.Constant_Value_c
+</h4>
+<span class="description">
+Parameters for &lt;S4&gt;/Constant
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Constant_Value_c;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Constant1_Value_h">
+<h4 class="function">
+process_PIConstrained_P.Constant1_Value_h
+</h4>
+<span class="description">
+Parameters for &lt;S4&gt;/Constant1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Constant1_Value_h;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Constant2_Value">
+<h4 class="function">
+process_PIConstrained_P.Constant2_Value
+</h4>
+<span class="description">
+Parameters for &lt;S4&gt;/Constant2
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Constant2_Value;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain4_Gain">
+<h4 class="function">
+process_PIConstrained_P.Gain4_Gain
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Gain4
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain4_Gain;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Constant1_Value_i">
+<h4 class="function">
+process_PIConstrained_P.Constant1_Value_i
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Constant1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Constant1_Value_i;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain_Gain_h">
+<h4 class="function">
+process_PIConstrained_P.Gain_Gain_h
+</h4>
+<span class="description">
+Parameters for &lt;S4&gt;/Gain
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain_Gain_h;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation6_UpperSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation6_UpperSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation6
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation6_UpperSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation6_LowerSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation6_LowerSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation6
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation6_LowerSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain1_Gain_l">
+<h4 class="function">
+process_PIConstrained_P.Gain1_Gain_l
+</h4>
+<span class="description">
+Parameters for &lt;S4&gt;/Gain1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain1_Gain_l;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Integrator_IC">
+<h4 class="function">
+process_PIConstrained_P.Integrator_IC
+</h4>
+<span class="description">
+Parameters for &lt;S3&gt;/Integrator
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Integrator_IC;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation3_UpperSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation3_UpperSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation3
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation3_UpperSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation3_LowerSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation3_LowerSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation3
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation3_LowerSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation5_UpperSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation5_UpperSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation5
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation5_UpperSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation5_LowerSat">
+<h4 class="function">
+process_PIConstrained_P.Saturation5_LowerSat
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Saturation5
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation5_LowerSat;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain_Gain_k">
+<h4 class="function">
+process_PIConstrained_P.Gain_Gain_k
+</h4>
+<span class="description">
+Parameters for &lt;S5&gt;/Gain
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain_Gain_k;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.X1_Step_Time">
+<h4 class="function">
+process_PIConstrained_P.X1_Step_Time
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/X1_Step
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T X1_Step_Time;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.X1_Step_Y0">
+<h4 class="function">
+process_PIConstrained_P.X1_Step_Y0
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/X1_Step
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T X1_Step_Y0;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.X1_Step_YFinal">
+<h4 class="function">
+process_PIConstrained_P.X1_Step_YFinal
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/X1_Step
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T X1_Step_YFinal;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain_Gain_n">
+<h4 class="function">
+process_PIConstrained_P.Gain_Gain_n
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Gain
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain_Gain_n;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation2_UpperSat_l">
+<h4 class="function">
+process_PIConstrained_P.Saturation2_UpperSat_l
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Saturation2
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation2_UpperSat_l;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Saturation2_LowerSat_a">
+<h4 class="function">
+process_PIConstrained_P.Saturation2_LowerSat_a
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Saturation2
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Saturation2_LowerSat_a;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain1_Gain_m">
+<h4 class="function">
+process_PIConstrained_P.Gain1_Gain_m
+</h4>
+<span class="description">
+Parameters for &lt;S7&gt;/Gain1
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain1_Gain_m;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+<div id="fcn_process_PIConstrained_P.Gain_Gain_hu">
+<h4 class="function">
+process_PIConstrained_P.Gain_Gain_hu
+</h4>
+<span class="description">
+Parameters for &lt;S3&gt;/Gain
+</span>
+<div class="programlisting">
+<code class="usage">struct {
+  ...
+  real_T Gain_Gain_hu;
+  ...
+} process_PIConstrained_P;</code>
+</div>
+</div>
+</section>
+<section id="sec_data_stores">
+<h3>
+3.4 Internal data
+</h3>
+Variables in the generated code that represent signal data, blocks that have internal state, and data stores that are generated in the code based on a storage class specification and flagged to be measured or not measured while the model code executes in the target environment.<p>
+No data stores in model; note that this report lists only data stores with non-auto default storage class and global data stores
+</p>
+</section>
+
+</td>
+
+</tr>
+
+</table>
+
+<script>function postParentWindowMessage(message) {window.parent.postMessage(message, "*");}</script>
+</body>
+
+</html>
