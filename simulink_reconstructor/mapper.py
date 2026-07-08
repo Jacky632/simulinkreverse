@@ -730,6 +730,8 @@ class CToSimulinkMapper:
         unmapped_code: str | None = None,
         certainty: str = "inferred",
     ) -> BlockIR:
+        if certainty == "inferred" and "inferred" not in name.lower():
+            name = f"inferred_{name}"
         unique_name = self._unique_block_name(name, ir)
         self.execution_index += 1
         block = BlockIR(

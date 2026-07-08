@@ -7,7 +7,11 @@ import logging
 import sys
 from pathlib import Path
 
-from simulink_reconstructor.pipeline import ReconstructionOptions, run_reconstruction
+from simulink_reconstructor.pipeline import (
+    ReconstructionOptions,
+    run_reconstruction,
+    run_reconstruction_variants,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -50,6 +54,14 @@ def build_parser() -> argparse.ArgumentParser:
             "instead of annotations where possible."
         ),
     )
+    parser.add_argument(
+        "--generate-layout-variants",
+        action="store_true",
+        help=(
+            "Generate the five requested readable-layout MATLAB scripts in the "
+            "output directory instead of only one builder script."
+        ),
+    )
     return parser
 
 
@@ -71,16 +83,24 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     configure_logging(args.verbose, args.debug)
 
-    options = ReconstructionOptions(
-        input_dir=Path(args.input),
-        output_path=Path(args.output),
-        model_name=args.model_name,
-        fallback_matlab_functions=args.fallback_matlab_functions,
-        debug=args.debug,
-    )
-
     try:
-        run_reconstruction(options)
+        if args.generate_layout_variants:
+            output_dir = Path(args.output).parent
+            run_reconstruction_variants(
+                input_dir=Path(args.input),
+                output_dir=output_dir,
+                fallback_matlab_functions=args.fallback_matlab_functions,
+                debug=args.debug,
+            )
+        else:
+            options = ReconstructionOptions(
+                input_dir=Path(args.input),
+                output_path=Path(args.output),
+                model_name=args.model_name,
+                fallback_matlab_functions=args.fallback_matlab_functions,
+                debug=args.debug,
+            )
+            run_reconstruction(options)
     except Exception as exc:  # pragma: no cover - CLI safety net
         logging.getLogger("simulink_reconstructor").exception("Reconstruction failed")
         print(f"error: {exc}", file=sys.stderr)

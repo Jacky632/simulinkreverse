@@ -16,7 +16,20 @@ Optional flags:
 python main.py --input ccode --output generated_model_builder.m --model-name reconstructed_model --verbose
 python main.py --input ccode --output generated_model_builder.m --model-name reconstructed_model --debug
 python main.py --input ccode --output generated_model_builder.m --model-name reconstructed_model --fallback-matlab-functions
+python main.py --input ccode --output generated_model_builder.m --generate-layout-variants
 ```
+
+The layout-variant command writes five independent MATLAB scripts:
+
+- `generated_model_builder_layout1_hierarchical.m`
+- `generated_model_builder_layout2_left_to_right_signal_flow.m`
+- `generated_model_builder_layout3_controller_plant_grouped.m`
+- `generated_model_builder_layout4_grid_aligned.m`
+- `generated_model_builder_layout5_subsystem_modular.m`
+
+Each variant saves a separate `.slx` model, prints generation progress in
+MATLAB, validates top-level block and signal-line counts, and includes the word
+`inferred` in inferred helper block names.
 
 Run the generated script in MATLAB with Simulink installed:
 
