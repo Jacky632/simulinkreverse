@@ -1,3 +1,4 @@
+INFO:simulink_reconstructor.pipeline:Generating layout variant: Hierarchical
 INFO:simulink_reconstructor.pipeline:Scanning C code folder: ccode
 INFO:simulink_reconstructor.loader:Loaded builtin_typeid_types.h
 INFO:simulink_reconstructor.loader:Loaded multiword_types.h
@@ -80,5 +81,350 @@ INFO:simulink_reconstructor.mapper:Inferred block S3_Sum (Sum) from process_PICo
 INFO:simulink_reconstructor.mapper:Inferred block S3_Gain (Gain) from process_PIConstrained.c:532
 INFO:simulink_reconstructor.pipeline:Inferred 67 blocks
 INFO:simulink_reconstructor.pipeline:Inferred 77 connections
-INFO:simulink_reconstructor.matlab_writer:Wrote MATLAB builder script: generated_model_builder.m
-INFO:simulink_reconstructor.pipeline:Output path: generated_model_builder.m
+INFO:simulink_reconstructor.pipeline:Applying layout strategy: Hierarchical
+INFO:simulink_reconstructor.matlab_writer:Wrote MATLAB builder script: generated_model_builder_layout1_hierarchical.m
+INFO:simulink_reconstructor.pipeline:Output path: generated_model_builder_layout1_hierarchical.m
+INFO:simulink_reconstructor.pipeline:Generating layout variant: Left-to-right signal flow
+INFO:simulink_reconstructor.pipeline:Scanning C code folder: ccode
+INFO:simulink_reconstructor.loader:Loaded builtin_typeid_types.h
+INFO:simulink_reconstructor.loader:Loaded multiword_types.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained.c
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_data.c
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_private.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_types.h
+INFO:simulink_reconstructor.loader:Loaded rt_nonfinite.c
+INFO:simulink_reconstructor.loader:Loaded rt_nonfinite.h
+INFO:simulink_reconstructor.loader:Loaded rtmodel.h
+INFO:simulink_reconstructor.loader:Loaded rtwtypes.h
+INFO:simulink_reconstructor.pipeline:Loaded 11 C/header files
+INFO:simulink_reconstructor.c_parser:Detected function rt_ertODEUpdateContinuousStates in process_PIConstrained.c:46 with 18 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_step in process_PIConstrained.c:124 with 108 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_derivatives in process_PIConstrained.c:592 with 6 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_initialize in process_PIConstrained.c:614 with 16 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_terminate in process_PIConstrained.c:737 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsInf in rt_nonfinite.c:33 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsInfF in rt_nonfinite.c:39 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsNaN in rt_nonfinite.c:45 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsNaNF in rt_nonfinite.c:51 with 0 assignments
+INFO:simulink_reconstructor.pipeline:Detected 9 functions
+INFO:simulink_reconstructor.pipeline:Detected 260 structs
+INFO:simulink_reconstructor.pipeline:Detected 59 parameters
+INFO:simulink_reconstructor.mapper:Output detected: L2
+INFO:simulink_reconstructor.mapper:Inferred block S5_L2Int (Integrator) from process_PIConstrained.c:150
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation (Saturation) from process_PIConstrained.c:158
+INFO:simulink_reconstructor.mapper:Inferred block Root_F1_Step (Step) from process_PIConstrained.c:176
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum1 (Sum) from process_PIConstrained.c:187
+INFO:simulink_reconstructor.mapper:Inferred block S6_Gain1 (Gain) from process_PIConstrained.c:191
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation2 (Saturation) from process_PIConstrained.c:202
+INFO:simulink_reconstructor.mapper:Inferred block S6_Gain (Gain) from process_PIConstrained.c:214
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum (Sum) from process_PIConstrained.c:220
+INFO:simulink_reconstructor.mapper:Inferred block S7_X2Int (Integrator) from process_PIConstrained.c:225
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain3 (Gain) from process_PIConstrained.c:228
+INFO:simulink_reconstructor.mapper:Inferred block S7_P2Int (Integrator) from process_PIConstrained.c:232
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation1 (Saturation) from process_PIConstrained.c:240
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain2 (Gain) from process_PIConstrained.c:252
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum2 (Sum) from process_PIConstrained.c:258
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum2 (Sum) from process_PIConstrained.c:262
+INFO:simulink_reconstructor.mapper:Inferred block S6_Product (Product) from process_PIConstrained.c:266
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum5 (Sum) from process_PIConstrained.c:272
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product2 (Product) from process_PIConstrained.c:276
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain5 (Gain) from process_PIConstrained.c:280
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum4 (Sum) from process_PIConstrained.c:284
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain6 (Gain) from process_PIConstrained.c:288
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation (Saturation) from process_PIConstrained.c:297
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation4 (Saturation) from process_PIConstrained.c:314
+INFO:simulink_reconstructor.mapper:Inferred block Root_FeedbackInt (Integrator) from process_PIConstrained.c:328
+INFO:simulink_reconstructor.mapper:Inferred block Root_L2_Set_Point (Step) from process_PIConstrained.c:335
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum (Sum) from process_PIConstrained.c:345
+INFO:simulink_reconstructor.mapper:Inferred block S1_Slider_Gain (Gain) from process_PIConstrained.c:349
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum2 (Sum) from process_PIConstrained.c:354
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum1 (Sum) from process_PIConstrained.c:360
+INFO:simulink_reconstructor.mapper:Inferred block Root_Ti (Gain) from process_PIConstrained.c:364
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain4 (Gain) from process_PIConstrained.c:368
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum3 (Sum) from process_PIConstrained.c:374
+INFO:simulink_reconstructor.mapper:Inferred block S4_Sum (Sum) from process_PIConstrained.c:380
+INFO:simulink_reconstructor.mapper:Inferred block S4_Gain (Gain) from process_PIConstrained.c:384
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation6 (Saturation) from process_PIConstrained.c:395
+INFO:simulink_reconstructor.mapper:Inferred block S4_Product (Product) from process_PIConstrained.c:410
+INFO:simulink_reconstructor.mapper:Inferred block S4_Sum1 (Sum) from process_PIConstrained.c:417
+INFO:simulink_reconstructor.mapper:Inferred block S4_Product1 (Product) from process_PIConstrained.c:422
+INFO:simulink_reconstructor.mapper:Inferred block S4_Gain1 (Gain) from process_PIConstrained.c:426
+INFO:simulink_reconstructor.mapper:Inferred block S3_Integrator (Integrator) from process_PIConstrained.c:430
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation3 (Saturation) from process_PIConstrained.c:438
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation5 (Saturation) from process_PIConstrained.c:455
+INFO:simulink_reconstructor.mapper:Inferred block S5_Sum (Sum) from process_PIConstrained.c:467
+INFO:simulink_reconstructor.mapper:Inferred block S5_Gain (Gain) from process_PIConstrained.c:471
+INFO:simulink_reconstructor.mapper:Inferred block Root_X1_Step (Step) from process_PIConstrained.c:478
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product (Product) from process_PIConstrained.c:487
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product1 (Product) from process_PIConstrained.c:491
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum (Sum) from process_PIConstrained.c:495
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain (Gain) from process_PIConstrained.c:499
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation2 (Saturation) from process_PIConstrained.c:508
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum1 (Sum) from process_PIConstrained.c:520
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain1 (Gain) from process_PIConstrained.c:524
+INFO:simulink_reconstructor.mapper:Inferred block S3_Sum (Sum) from process_PIConstrained.c:528
+INFO:simulink_reconstructor.mapper:Inferred block S3_Gain (Gain) from process_PIConstrained.c:532
+INFO:simulink_reconstructor.pipeline:Inferred 67 blocks
+INFO:simulink_reconstructor.pipeline:Inferred 77 connections
+INFO:simulink_reconstructor.pipeline:Applying layout strategy: Left-to-right signal flow
+INFO:simulink_reconstructor.matlab_writer:Wrote MATLAB builder script: generated_model_builder_layout2_left_to_right_signal_flow.m
+INFO:simulink_reconstructor.pipeline:Output path: generated_model_builder_layout2_left_to_right_signal_flow.m
+INFO:simulink_reconstructor.pipeline:Generating layout variant: Controller and plant grouped
+INFO:simulink_reconstructor.pipeline:Scanning C code folder: ccode
+INFO:simulink_reconstructor.loader:Loaded builtin_typeid_types.h
+INFO:simulink_reconstructor.loader:Loaded multiword_types.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained.c
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_data.c
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_private.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_types.h
+INFO:simulink_reconstructor.loader:Loaded rt_nonfinite.c
+INFO:simulink_reconstructor.loader:Loaded rt_nonfinite.h
+INFO:simulink_reconstructor.loader:Loaded rtmodel.h
+INFO:simulink_reconstructor.loader:Loaded rtwtypes.h
+INFO:simulink_reconstructor.pipeline:Loaded 11 C/header files
+INFO:simulink_reconstructor.c_parser:Detected function rt_ertODEUpdateContinuousStates in process_PIConstrained.c:46 with 18 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_step in process_PIConstrained.c:124 with 108 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_derivatives in process_PIConstrained.c:592 with 6 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_initialize in process_PIConstrained.c:614 with 16 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_terminate in process_PIConstrained.c:737 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsInf in rt_nonfinite.c:33 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsInfF in rt_nonfinite.c:39 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsNaN in rt_nonfinite.c:45 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsNaNF in rt_nonfinite.c:51 with 0 assignments
+INFO:simulink_reconstructor.pipeline:Detected 9 functions
+INFO:simulink_reconstructor.pipeline:Detected 260 structs
+INFO:simulink_reconstructor.pipeline:Detected 59 parameters
+INFO:simulink_reconstructor.mapper:Output detected: L2
+INFO:simulink_reconstructor.mapper:Inferred block S5_L2Int (Integrator) from process_PIConstrained.c:150
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation (Saturation) from process_PIConstrained.c:158
+INFO:simulink_reconstructor.mapper:Inferred block Root_F1_Step (Step) from process_PIConstrained.c:176
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum1 (Sum) from process_PIConstrained.c:187
+INFO:simulink_reconstructor.mapper:Inferred block S6_Gain1 (Gain) from process_PIConstrained.c:191
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation2 (Saturation) from process_PIConstrained.c:202
+INFO:simulink_reconstructor.mapper:Inferred block S6_Gain (Gain) from process_PIConstrained.c:214
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum (Sum) from process_PIConstrained.c:220
+INFO:simulink_reconstructor.mapper:Inferred block S7_X2Int (Integrator) from process_PIConstrained.c:225
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain3 (Gain) from process_PIConstrained.c:228
+INFO:simulink_reconstructor.mapper:Inferred block S7_P2Int (Integrator) from process_PIConstrained.c:232
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation1 (Saturation) from process_PIConstrained.c:240
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain2 (Gain) from process_PIConstrained.c:252
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum2 (Sum) from process_PIConstrained.c:258
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum2 (Sum) from process_PIConstrained.c:262
+INFO:simulink_reconstructor.mapper:Inferred block S6_Product (Product) from process_PIConstrained.c:266
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum5 (Sum) from process_PIConstrained.c:272
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product2 (Product) from process_PIConstrained.c:276
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain5 (Gain) from process_PIConstrained.c:280
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum4 (Sum) from process_PIConstrained.c:284
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain6 (Gain) from process_PIConstrained.c:288
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation (Saturation) from process_PIConstrained.c:297
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation4 (Saturation) from process_PIConstrained.c:314
+INFO:simulink_reconstructor.mapper:Inferred block Root_FeedbackInt (Integrator) from process_PIConstrained.c:328
+INFO:simulink_reconstructor.mapper:Inferred block Root_L2_Set_Point (Step) from process_PIConstrained.c:335
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum (Sum) from process_PIConstrained.c:345
+INFO:simulink_reconstructor.mapper:Inferred block S1_Slider_Gain (Gain) from process_PIConstrained.c:349
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum2 (Sum) from process_PIConstrained.c:354
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum1 (Sum) from process_PIConstrained.c:360
+INFO:simulink_reconstructor.mapper:Inferred block Root_Ti (Gain) from process_PIConstrained.c:364
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain4 (Gain) from process_PIConstrained.c:368
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum3 (Sum) from process_PIConstrained.c:374
+INFO:simulink_reconstructor.mapper:Inferred block S4_Sum (Sum) from process_PIConstrained.c:380
+INFO:simulink_reconstructor.mapper:Inferred block S4_Gain (Gain) from process_PIConstrained.c:384
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation6 (Saturation) from process_PIConstrained.c:395
+INFO:simulink_reconstructor.mapper:Inferred block S4_Product (Product) from process_PIConstrained.c:410
+INFO:simulink_reconstructor.mapper:Inferred block S4_Sum1 (Sum) from process_PIConstrained.c:417
+INFO:simulink_reconstructor.mapper:Inferred block S4_Product1 (Product) from process_PIConstrained.c:422
+INFO:simulink_reconstructor.mapper:Inferred block S4_Gain1 (Gain) from process_PIConstrained.c:426
+INFO:simulink_reconstructor.mapper:Inferred block S3_Integrator (Integrator) from process_PIConstrained.c:430
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation3 (Saturation) from process_PIConstrained.c:438
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation5 (Saturation) from process_PIConstrained.c:455
+INFO:simulink_reconstructor.mapper:Inferred block S5_Sum (Sum) from process_PIConstrained.c:467
+INFO:simulink_reconstructor.mapper:Inferred block S5_Gain (Gain) from process_PIConstrained.c:471
+INFO:simulink_reconstructor.mapper:Inferred block Root_X1_Step (Step) from process_PIConstrained.c:478
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product (Product) from process_PIConstrained.c:487
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product1 (Product) from process_PIConstrained.c:491
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum (Sum) from process_PIConstrained.c:495
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain (Gain) from process_PIConstrained.c:499
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation2 (Saturation) from process_PIConstrained.c:508
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum1 (Sum) from process_PIConstrained.c:520
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain1 (Gain) from process_PIConstrained.c:524
+INFO:simulink_reconstructor.mapper:Inferred block S3_Sum (Sum) from process_PIConstrained.c:528
+INFO:simulink_reconstructor.mapper:Inferred block S3_Gain (Gain) from process_PIConstrained.c:532
+INFO:simulink_reconstructor.pipeline:Inferred 67 blocks
+INFO:simulink_reconstructor.pipeline:Inferred 77 connections
+INFO:simulink_reconstructor.pipeline:Applying layout strategy: Controller and plant grouped
+INFO:simulink_reconstructor.matlab_writer:Wrote MATLAB builder script: generated_model_builder_layout3_controller_plant_grouped.m
+INFO:simulink_reconstructor.pipeline:Output path: generated_model_builder_layout3_controller_plant_grouped.m
+INFO:simulink_reconstructor.pipeline:Generating layout variant: Grid aligned
+INFO:simulink_reconstructor.pipeline:Scanning C code folder: ccode
+INFO:simulink_reconstructor.loader:Loaded builtin_typeid_types.h
+INFO:simulink_reconstructor.loader:Loaded multiword_types.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained.c
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_data.c
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_private.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_types.h
+INFO:simulink_reconstructor.loader:Loaded rt_nonfinite.c
+INFO:simulink_reconstructor.loader:Loaded rt_nonfinite.h
+INFO:simulink_reconstructor.loader:Loaded rtmodel.h
+INFO:simulink_reconstructor.loader:Loaded rtwtypes.h
+INFO:simulink_reconstructor.pipeline:Loaded 11 C/header files
+INFO:simulink_reconstructor.c_parser:Detected function rt_ertODEUpdateContinuousStates in process_PIConstrained.c:46 with 18 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_step in process_PIConstrained.c:124 with 108 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_derivatives in process_PIConstrained.c:592 with 6 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_initialize in process_PIConstrained.c:614 with 16 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_terminate in process_PIConstrained.c:737 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsInf in rt_nonfinite.c:33 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsInfF in rt_nonfinite.c:39 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsNaN in rt_nonfinite.c:45 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsNaNF in rt_nonfinite.c:51 with 0 assignments
+INFO:simulink_reconstructor.pipeline:Detected 9 functions
+INFO:simulink_reconstructor.pipeline:Detected 260 structs
+INFO:simulink_reconstructor.pipeline:Detected 59 parameters
+INFO:simulink_reconstructor.mapper:Output detected: L2
+INFO:simulink_reconstructor.mapper:Inferred block S5_L2Int (Integrator) from process_PIConstrained.c:150
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation (Saturation) from process_PIConstrained.c:158
+INFO:simulink_reconstructor.mapper:Inferred block Root_F1_Step (Step) from process_PIConstrained.c:176
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum1 (Sum) from process_PIConstrained.c:187
+INFO:simulink_reconstructor.mapper:Inferred block S6_Gain1 (Gain) from process_PIConstrained.c:191
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation2 (Saturation) from process_PIConstrained.c:202
+INFO:simulink_reconstructor.mapper:Inferred block S6_Gain (Gain) from process_PIConstrained.c:214
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum (Sum) from process_PIConstrained.c:220
+INFO:simulink_reconstructor.mapper:Inferred block S7_X2Int (Integrator) from process_PIConstrained.c:225
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain3 (Gain) from process_PIConstrained.c:228
+INFO:simulink_reconstructor.mapper:Inferred block S7_P2Int (Integrator) from process_PIConstrained.c:232
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation1 (Saturation) from process_PIConstrained.c:240
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain2 (Gain) from process_PIConstrained.c:252
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum2 (Sum) from process_PIConstrained.c:258
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum2 (Sum) from process_PIConstrained.c:262
+INFO:simulink_reconstructor.mapper:Inferred block S6_Product (Product) from process_PIConstrained.c:266
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum5 (Sum) from process_PIConstrained.c:272
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product2 (Product) from process_PIConstrained.c:276
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain5 (Gain) from process_PIConstrained.c:280
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum4 (Sum) from process_PIConstrained.c:284
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain6 (Gain) from process_PIConstrained.c:288
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation (Saturation) from process_PIConstrained.c:297
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation4 (Saturation) from process_PIConstrained.c:314
+INFO:simulink_reconstructor.mapper:Inferred block Root_FeedbackInt (Integrator) from process_PIConstrained.c:328
+INFO:simulink_reconstructor.mapper:Inferred block Root_L2_Set_Point (Step) from process_PIConstrained.c:335
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum (Sum) from process_PIConstrained.c:345
+INFO:simulink_reconstructor.mapper:Inferred block S1_Slider_Gain (Gain) from process_PIConstrained.c:349
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum2 (Sum) from process_PIConstrained.c:354
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum1 (Sum) from process_PIConstrained.c:360
+INFO:simulink_reconstructor.mapper:Inferred block Root_Ti (Gain) from process_PIConstrained.c:364
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain4 (Gain) from process_PIConstrained.c:368
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum3 (Sum) from process_PIConstrained.c:374
+INFO:simulink_reconstructor.mapper:Inferred block S4_Sum (Sum) from process_PIConstrained.c:380
+INFO:simulink_reconstructor.mapper:Inferred block S4_Gain (Gain) from process_PIConstrained.c:384
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation6 (Saturation) from process_PIConstrained.c:395
+INFO:simulink_reconstructor.mapper:Inferred block S4_Product (Product) from process_PIConstrained.c:410
+INFO:simulink_reconstructor.mapper:Inferred block S4_Sum1 (Sum) from process_PIConstrained.c:417
+INFO:simulink_reconstructor.mapper:Inferred block S4_Product1 (Product) from process_PIConstrained.c:422
+INFO:simulink_reconstructor.mapper:Inferred block S4_Gain1 (Gain) from process_PIConstrained.c:426
+INFO:simulink_reconstructor.mapper:Inferred block S3_Integrator (Integrator) from process_PIConstrained.c:430
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation3 (Saturation) from process_PIConstrained.c:438
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation5 (Saturation) from process_PIConstrained.c:455
+INFO:simulink_reconstructor.mapper:Inferred block S5_Sum (Sum) from process_PIConstrained.c:467
+INFO:simulink_reconstructor.mapper:Inferred block S5_Gain (Gain) from process_PIConstrained.c:471
+INFO:simulink_reconstructor.mapper:Inferred block Root_X1_Step (Step) from process_PIConstrained.c:478
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product (Product) from process_PIConstrained.c:487
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product1 (Product) from process_PIConstrained.c:491
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum (Sum) from process_PIConstrained.c:495
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain (Gain) from process_PIConstrained.c:499
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation2 (Saturation) from process_PIConstrained.c:508
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum1 (Sum) from process_PIConstrained.c:520
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain1 (Gain) from process_PIConstrained.c:524
+INFO:simulink_reconstructor.mapper:Inferred block S3_Sum (Sum) from process_PIConstrained.c:528
+INFO:simulink_reconstructor.mapper:Inferred block S3_Gain (Gain) from process_PIConstrained.c:532
+INFO:simulink_reconstructor.pipeline:Inferred 67 blocks
+INFO:simulink_reconstructor.pipeline:Inferred 77 connections
+INFO:simulink_reconstructor.pipeline:Applying layout strategy: Grid aligned
+INFO:simulink_reconstructor.matlab_writer:Wrote MATLAB builder script: generated_model_builder_layout4_grid_aligned.m
+INFO:simulink_reconstructor.pipeline:Output path: generated_model_builder_layout4_grid_aligned.m
+INFO:simulink_reconstructor.pipeline:Generating layout variant: Subsystem modular
+INFO:simulink_reconstructor.pipeline:Scanning C code folder: ccode
+INFO:simulink_reconstructor.loader:Loaded builtin_typeid_types.h
+INFO:simulink_reconstructor.loader:Loaded multiword_types.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained.c
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_data.c
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_private.h
+INFO:simulink_reconstructor.loader:Loaded process_PIConstrained_types.h
+INFO:simulink_reconstructor.loader:Loaded rt_nonfinite.c
+INFO:simulink_reconstructor.loader:Loaded rt_nonfinite.h
+INFO:simulink_reconstructor.loader:Loaded rtmodel.h
+INFO:simulink_reconstructor.loader:Loaded rtwtypes.h
+INFO:simulink_reconstructor.pipeline:Loaded 11 C/header files
+INFO:simulink_reconstructor.c_parser:Detected function rt_ertODEUpdateContinuousStates in process_PIConstrained.c:46 with 18 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_step in process_PIConstrained.c:124 with 108 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_derivatives in process_PIConstrained.c:592 with 6 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_initialize in process_PIConstrained.c:614 with 16 assignments
+INFO:simulink_reconstructor.c_parser:Detected function process_PIConstrained_terminate in process_PIConstrained.c:737 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsInf in rt_nonfinite.c:33 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsInfF in rt_nonfinite.c:39 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsNaN in rt_nonfinite.c:45 with 0 assignments
+INFO:simulink_reconstructor.c_parser:Detected function rtIsNaNF in rt_nonfinite.c:51 with 0 assignments
+INFO:simulink_reconstructor.pipeline:Detected 9 functions
+INFO:simulink_reconstructor.pipeline:Detected 260 structs
+INFO:simulink_reconstructor.pipeline:Detected 59 parameters
+INFO:simulink_reconstructor.mapper:Output detected: L2
+INFO:simulink_reconstructor.mapper:Inferred block S5_L2Int (Integrator) from process_PIConstrained.c:150
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation (Saturation) from process_PIConstrained.c:158
+INFO:simulink_reconstructor.mapper:Inferred block Root_F1_Step (Step) from process_PIConstrained.c:176
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum1 (Sum) from process_PIConstrained.c:187
+INFO:simulink_reconstructor.mapper:Inferred block S6_Gain1 (Gain) from process_PIConstrained.c:191
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation2 (Saturation) from process_PIConstrained.c:202
+INFO:simulink_reconstructor.mapper:Inferred block S6_Gain (Gain) from process_PIConstrained.c:214
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum (Sum) from process_PIConstrained.c:220
+INFO:simulink_reconstructor.mapper:Inferred block S7_X2Int (Integrator) from process_PIConstrained.c:225
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain3 (Gain) from process_PIConstrained.c:228
+INFO:simulink_reconstructor.mapper:Inferred block S7_P2Int (Integrator) from process_PIConstrained.c:232
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation1 (Saturation) from process_PIConstrained.c:240
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain2 (Gain) from process_PIConstrained.c:252
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum2 (Sum) from process_PIConstrained.c:258
+INFO:simulink_reconstructor.mapper:Inferred block S6_Sum2 (Sum) from process_PIConstrained.c:262
+INFO:simulink_reconstructor.mapper:Inferred block S6_Product (Product) from process_PIConstrained.c:266
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum5 (Sum) from process_PIConstrained.c:272
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product2 (Product) from process_PIConstrained.c:276
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain5 (Gain) from process_PIConstrained.c:280
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum4 (Sum) from process_PIConstrained.c:284
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain6 (Gain) from process_PIConstrained.c:288
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation (Saturation) from process_PIConstrained.c:297
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation4 (Saturation) from process_PIConstrained.c:314
+INFO:simulink_reconstructor.mapper:Inferred block Root_FeedbackInt (Integrator) from process_PIConstrained.c:328
+INFO:simulink_reconstructor.mapper:Inferred block Root_L2_Set_Point (Step) from process_PIConstrained.c:335
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum (Sum) from process_PIConstrained.c:345
+INFO:simulink_reconstructor.mapper:Inferred block S1_Slider_Gain (Gain) from process_PIConstrained.c:349
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum2 (Sum) from process_PIConstrained.c:354
+INFO:simulink_reconstructor.mapper:Inferred block Root_Sum1 (Sum) from process_PIConstrained.c:360
+INFO:simulink_reconstructor.mapper:Inferred block Root_Ti (Gain) from process_PIConstrained.c:364
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain4 (Gain) from process_PIConstrained.c:368
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum3 (Sum) from process_PIConstrained.c:374
+INFO:simulink_reconstructor.mapper:Inferred block S4_Sum (Sum) from process_PIConstrained.c:380
+INFO:simulink_reconstructor.mapper:Inferred block S4_Gain (Gain) from process_PIConstrained.c:384
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation6 (Saturation) from process_PIConstrained.c:395
+INFO:simulink_reconstructor.mapper:Inferred block S4_Product (Product) from process_PIConstrained.c:410
+INFO:simulink_reconstructor.mapper:Inferred block S4_Sum1 (Sum) from process_PIConstrained.c:417
+INFO:simulink_reconstructor.mapper:Inferred block S4_Product1 (Product) from process_PIConstrained.c:422
+INFO:simulink_reconstructor.mapper:Inferred block S4_Gain1 (Gain) from process_PIConstrained.c:426
+INFO:simulink_reconstructor.mapper:Inferred block S3_Integrator (Integrator) from process_PIConstrained.c:430
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation3 (Saturation) from process_PIConstrained.c:438
+INFO:simulink_reconstructor.mapper:Inferred block S2_Saturation5 (Saturation) from process_PIConstrained.c:455
+INFO:simulink_reconstructor.mapper:Inferred block S5_Sum (Sum) from process_PIConstrained.c:467
+INFO:simulink_reconstructor.mapper:Inferred block S5_Gain (Gain) from process_PIConstrained.c:471
+INFO:simulink_reconstructor.mapper:Inferred block Root_X1_Step (Step) from process_PIConstrained.c:478
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product (Product) from process_PIConstrained.c:487
+INFO:simulink_reconstructor.mapper:Inferred block S7_Product1 (Product) from process_PIConstrained.c:491
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum (Sum) from process_PIConstrained.c:495
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain (Gain) from process_PIConstrained.c:499
+INFO:simulink_reconstructor.mapper:Inferred block S7_Saturation2 (Saturation) from process_PIConstrained.c:508
+INFO:simulink_reconstructor.mapper:Inferred block S7_Sum1 (Sum) from process_PIConstrained.c:520
+INFO:simulink_reconstructor.mapper:Inferred block S7_Gain1 (Gain) from process_PIConstrained.c:524
+INFO:simulink_reconstructor.mapper:Inferred block S3_Sum (Sum) from process_PIConstrained.c:528
+INFO:simulink_reconstructor.mapper:Inferred block S3_Gain (Gain) from process_PIConstrained.c:532
+INFO:simulink_reconstructor.pipeline:Inferred 67 blocks
+INFO:simulink_reconstructor.pipeline:Inferred 77 connections
+INFO:simulink_reconstructor.pipeline:Applying layout strategy: Subsystem modular
+INFO:simulink_reconstructor.matlab_writer:Wrote MATLAB builder script: generated_model_builder_layout5_subsystem_modular.m
+INFO:simulink_reconstructor.pipeline:Output path: generated_model_builder_layout5_subsystem_modular.m

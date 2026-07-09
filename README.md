@@ -8,6 +8,8 @@ MATLAB script that builds an approximate Simulink model with API calls such as
 
 ```bash
 python main.py --input ccode --output generated_model_builder.m --model-name reconstructed_model
+
+python main.py --input ccode --output generated_model_builder.m --model-name reconstructed_model --verbose > reconstruction.log 2>&1 --generate-layout-variants
 ```
 
 Optional flags:
