@@ -890,8 +890,8 @@ end
 
 % Validate expected top-level block and signal-line counts.
 fprintf('[validation] Checking top-level block and signal-line counts.\n');
-actualBlockCount = numel(find_system(model, 'SearchDepth', 1, 'Type', 'Block'));
-actualLineCount = numel(find_system(model, 'FindAll', 'on', 'SearchDepth', 1, 'Type', 'line'));
+actualBlockCount = numel(find_system(model, 'Type', 'Block'));
+actualLineCount = numel(find_system(model, 'FindAll', 'on', 'Type', 'line'));
 if actualBlockCount ~= expectedBlockCount
     warning('Expected %d blocks, but found %d.', expectedBlockCount, actualBlockCount);
 end

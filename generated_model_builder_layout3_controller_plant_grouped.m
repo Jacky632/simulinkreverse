@@ -31,21 +31,21 @@ open_system(model);
 % Outport: L2
 % C expression: process_PIConstrained_B.Saturation
 add_block('simulink/Sinks/Out1', [model '/L2'], 'MakeNameUnique', 'off');
-set_param([model '/L2'], 'Position', [6680 110 6750 142]);
+set_param([model '/L2'], 'Position', [80 96 150 128]);
 set_param([model '/L2'], 'Port', '1');
 
 % Integrator: S5_L2Int
 % Source trace: <S5>/L2Int (certain)
 % C expression: process_PIConstrained_B.Gain_g
 add_block('simulink/Continuous/Integrator', [model '/S5_L2Int'], 'MakeNameUnique', 'off');
-set_param([model '/S5_L2Int'], 'Position', [6020 2910 6150 2970]);
+set_param([model '/S5_L2Int'], 'Position', [370 1662 500 1722]);
 set_param([model '/S5_L2Int'], 'InitialCondition', '1.0');
 
 % Saturation: S2_Saturation
 % Source trace: <S2>/Saturation (certain)
 % C expression: (process_PIConstrained_P.Saturation_UpperSat)
 add_block('simulink/Discontinuities/Saturation', [model '/S2_Saturation'], 'MakeNameUnique', 'off');
-set_param([model '/S2_Saturation'], 'Position', [6240 1790 6350 1840]);
+set_param([model '/S2_Saturation'], 'Position', [515 1216 625 1266]);
 set_param([model '/S2_Saturation'], 'LowerLimit', '0.0');
 set_param([model '/S2_Saturation'], 'UpperLimit', '2.0');
 
@@ -53,7 +53,7 @@ set_param([model '/S2_Saturation'], 'UpperLimit', '2.0');
 % Source trace: <Root>/F1_Step (certain)
 % C expression: process_PIConstrained_P.F1_Step_Y0
 add_block('simulink/Sources/Step', [model '/Root_F1_Step'], 'MakeNameUnique', 'off');
-set_param([model '/Root_F1_Step'], 'Position', [80 670 184 716]);
+set_param([model '/Root_F1_Step'], 'Position', [80 376 184 422]);
 set_param([model '/Root_F1_Step'], 'Time', '200.0');
 set_param([model '/Root_F1_Step'], 'Before', '10.0');
 set_param([model '/Root_F1_Step'], 'After', '10.0');
@@ -62,21 +62,21 @@ set_param([model '/Root_F1_Step'], 'After', '10.0');
 % Source trace: <S6>/Sum1 (certain)
 % C expression: process_PIConstrained_B.F1_Step + process_PIConstrained_P.F3_Value
 add_block('simulink/Math Operations/Sum', [model '/S6_Sum1'], 'MakeNameUnique', 'off');
-set_param([model '/S6_Sum1'], 'Position', [300 3470 370 3520]);
+set_param([model '/S6_Sum1'], 'Position', [80 1942 150 1992]);
 set_param([model '/S6_Sum1'], 'Inputs', '++');
 
 % Gain: S6_Gain1
 % Source trace: <S6>/Gain1 (certain)
 % C expression: process_PIConstrained_P.Gain1_Gain * process_PIConstrained_B.Sum1
 add_block('simulink/Math Operations/Gain', [model '/S6_Gain1'], 'MakeNameUnique', 'off');
-set_param([model '/S6_Gain1'], 'Position', [520 3548 600 3594]);
+set_param([model '/S6_Gain1'], 'Position', [225 1998 305 2044]);
 set_param([model '/S6_Gain1'], 'Gain', '0.16');
 
 % Saturation: S2_Saturation2
 % Source trace: <S2>/Saturation2 (certain)
 % C expression: (process_PIConstrained_P.Saturation2_UpperSat)
 add_block('simulink/Discontinuities/Saturation', [model '/S2_Saturation2'], 'MakeNameUnique', 'off');
-set_param([model '/S2_Saturation2'], 'Position', [300 1790 410 1840]);
+set_param([model '/S2_Saturation2'], 'Position', [80 936 190 986]);
 set_param([model '/S2_Saturation2'], 'LowerLimit', '0.0');
 set_param([model '/S2_Saturation2'], 'UpperLimit', '400.0');
 
@@ -84,42 +84,42 @@ set_param([model '/S2_Saturation2'], 'UpperLimit', '400.0');
 % Source trace: <S6>/Gain (certain)
 % C expression: process_PIConstrained_P.Gain_Gain * process_PIConstrained_B.Saturation2
 add_block('simulink/Math Operations/Gain', [model '/S6_Gain'], 'MakeNameUnique', 'off');
-set_param([model '/S6_Gain'], 'Position', [520 3470 600 3516]);
+set_param([model '/S6_Gain'], 'Position', [225 1942 305 1988]);
 set_param([model '/S6_Gain'], 'Gain', '0.1538');
 
 % Sum: S6_Sum
 % Source trace: <S6>/Sum (certain)
 % C expression: process_PIConstrained_P.Constant1_Value + process_PIConstrained_B.Gain
 add_block('simulink/Math Operations/Sum', [model '/S6_Sum'], 'MakeNameUnique', 'off');
-set_param([model '/S6_Sum'], 'Position', [740 3470 810 3520]);
+set_param([model '/S6_Sum'], 'Position', [370 1942 440 1992]);
 set_param([model '/S6_Sum'], 'Inputs', '++');
 
 % Integrator: S7_X2Int
 % Source trace: <S7>/X2Int (certain)
 % C expression: process_PIConstrained_B.Gain_a
 add_block('simulink/Continuous/Integrator', [model '/S7_X2Int'], 'MakeNameUnique', 'off');
-set_param([model '/S7_X2Int'], 'Position', [3380 4030 3510 4090]);
+set_param([model '/S7_X2Int'], 'Position', [370 2444 500 2504]);
 set_param([model '/S7_X2Int'], 'InitialCondition', '25.0');
 
 % Gain: S7_Gain3
 % Source trace: <S7>/Gain3 (certain)
 % C expression: process_PIConstrained_P.Gain3_Gain * process_PIConstrained_B.X2Int
 add_block('simulink/Math Operations/Gain', [model '/S7_Gain3'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Gain3'], 'Position', [3600 4030 3680 4076]);
+set_param([model '/S7_Gain3'], 'Position', [515 2444 595 2490]);
 set_param([model '/S7_Gain3'], 'Gain', '0.3126');
 
 % Integrator: S7_P2Int
 % Source trace: <S7>/P2Int (certain)
 % C expression: process_PIConstrained_B.Gain1_f
 add_block('simulink/Continuous/Integrator', [model '/S7_P2Int'], 'MakeNameUnique', 'off');
-set_param([model '/S7_P2Int'], 'Position', [2500 4030 2630 4090]);
+set_param([model '/S7_P2Int'], 'Position', [1530 2276 1660 2336]);
 set_param([model '/S7_P2Int'], 'InitialCondition', '50.5');
 
 % Saturation: S7_Saturation1
 % Source trace: <S7>/Saturation1 (certain)
 % C expression: (process_PIConstrained_P.Saturation1_UpperSat)
 add_block('simulink/Discontinuities/Saturation', [model '/S7_Saturation1'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Saturation1'], 'Position', [2720 4108 2830 4158]);
+set_param([model '/S7_Saturation1'], 'Position', [1675 2332 1785 2382]);
 set_param([model '/S7_Saturation1'], 'LowerLimit', '0.0');
 set_param([model '/S7_Saturation1'], 'UpperLimit', '100.0');
 
@@ -127,70 +127,70 @@ set_param([model '/S7_Saturation1'], 'UpperLimit', '100.0');
 % Source trace: <S7>/Gain2 (certain)
 % C expression: process_PIConstrained_P.Gain2_Gain * process_PIConstrained_B.Saturation1
 add_block('simulink/Math Operations/Gain', [model '/S7_Gain2'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Gain2'], 'Position', [2940 4030 3020 4076]);
+set_param([model '/S7_Gain2'], 'Position', [80 2444 160 2490]);
 set_param([model '/S7_Gain2'], 'Gain', '0.5616');
 
 % Sum: S7_Sum2
 % Source trace: <S7>/Sum2 (certain)
 % C expression: (process_PIConstrained_B.Gain3 + process_PIConstrained_P.Constant_Value) + process_PIConstrained_B.Gain2
 add_block('simulink/Math Operations/Sum', [model '/S7_Sum2'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Sum2'], 'Position', [3820 4030 3890 4080]);
+set_param([model '/S7_Sum2'], 'Position', [660 2444 730 2494]);
 set_param([model '/S7_Sum2'], 'Inputs', '+++');
 
 % Sum: S6_Sum2
 % Source trace: <S6>/Sum2 (certain)
 % C expression: process_PIConstrained_B.Sum - process_PIConstrained_B.Sum2
 add_block('simulink/Math Operations/Sum', [model '/S6_Sum2'], 'MakeNameUnique', 'off');
-set_param([model '/S6_Sum2'], 'Position', [4040 3470 4110 3520]);
+set_param([model '/S6_Sum2'], 'Position', [805 2110 875 2160]);
 set_param([model '/S6_Sum2'], 'Inputs', '+-');
 
 % Product: S6_Product
 % Source trace: <S6>/Product (certain)
 % C expression: process_PIConstrained_B.Gain1 * process_PIConstrained_B.Sum2_o
 add_block('simulink/Math Operations/Product', [model '/S6_Product'], 'MakeNameUnique', 'off');
-set_param([model '/S6_Product'], 'Position', [4260 3470 4330 3520]);
+set_param([model '/S6_Product'], 'Position', [950 2110 1020 2160]);
 set_param([model '/S6_Product'], 'Inputs', '**');
 
 % Sum: S7_Sum5
 % Source trace: <S7>/Sum5 (certain)
 % C expression: process_PIConstrained_B.Sum2 - process_PIConstrained_P.T1_Value
 add_block('simulink/Math Operations/Sum', [model '/S7_Sum5'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Sum5'], 'Position', [4040 4030 4110 4080]);
+set_param([model '/S7_Sum5'], 'Position', [805 2444 875 2494]);
 set_param([model '/S7_Sum5'], 'Inputs', '+-');
 
 % Product: S7_Product2
 % Source trace: <S7>/Product2 (certain)
 % C expression: process_PIConstrained_B.Sum5 * process_PIConstrained_B.F1_Step
 add_block('simulink/Math Operations/Product', [model '/S7_Product2'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Product2'], 'Position', [4260 4030 4330 4080]);
+set_param([model '/S7_Product2'], 'Position', [950 2444 1020 2494]);
 set_param([model '/S7_Product2'], 'Inputs', '**');
 
 % Gain: S7_Gain5
 % Source trace: <S7>/Gain5 (certain)
 % C expression: process_PIConstrained_P.Gain5_Gain * process_PIConstrained_B.Product2
 add_block('simulink/Math Operations/Gain', [model '/S7_Gain5'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Gain5'], 'Position', [4480 4030 4560 4076]);
+set_param([model '/S7_Gain5'], 'Position', [1095 2444 1175 2490]);
 set_param([model '/S7_Gain5'], 'Gain', '0.07');
 
 % Sum: S7_Sum4
 % Source trace: <S7>/Sum4 (certain)
 % C expression: process_PIConstrained_B.Product - process_PIConstrained_B.Gain5
 add_block('simulink/Math Operations/Sum', [model '/S7_Sum4'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Sum4'], 'Position', [4700 4030 4770 4080]);
+set_param([model '/S7_Sum4'], 'Position', [1240 2444 1310 2494]);
 set_param([model '/S7_Sum4'], 'Inputs', '+-');
 
 % Gain: S7_Gain6
 % Source trace: <S7>/Gain6 (certain)
 % C expression: process_PIConstrained_P.Gain6_Gain * process_PIConstrained_B.Sum4
 add_block('simulink/Math Operations/Gain', [model '/S7_Gain6'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Gain6'], 'Position', [4920 4030 5000 4076]);
+set_param([model '/S7_Gain6'], 'Position', [1385 2444 1465 2490]);
 set_param([model '/S7_Gain6'], 'Gain', '0.025974025974025976');
 
 % Saturation: S7_Saturation
 % Source trace: <S7>/Saturation (certain)
 % C expression: (process_PIConstrained_P.Saturation_UpperSat_p)
 add_block('simulink/Discontinuities/Saturation', [model '/S7_Saturation'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Saturation'], 'Position', [5140 4030 5250 4080]);
+set_param([model '/S7_Saturation'], 'Position', [1530 2444 1640 2494]);
 set_param([model '/S7_Saturation'], 'LowerLimit', '0.0');
 set_param([model '/S7_Saturation'], 'UpperLimit', '16.0');
 
@@ -198,7 +198,7 @@ set_param([model '/S7_Saturation'], 'UpperLimit', '16.0');
 % Source trace: <S2>/Saturation4 (certain)
 % C expression: (process_PIConstrained_P.Saturation4_UpperSat)
 add_block('simulink/Discontinuities/Saturation', [model '/S2_Saturation4'], 'MakeNameUnique', 'off');
-set_param([model '/S2_Saturation4'], 'Position', [5360 1790 5470 1840]);
+set_param([model '/S2_Saturation4'], 'Position', [1675 1104 1785 1154]);
 set_param([model '/S2_Saturation4'], 'LowerLimit', '0.0');
 set_param([model '/S2_Saturation4'], 'UpperLimit', '16.0');
 
@@ -206,14 +206,14 @@ set_param([model '/S2_Saturation4'], 'UpperLimit', '16.0');
 % Source trace: <Root>/FeedbackInt (certain)
 % C expression: process_PIConstrained_B.Ti
 add_block('simulink/Continuous/Integrator', [model '/Root_FeedbackInt'], 'MakeNameUnique', 'off');
-set_param([model '/Root_FeedbackInt'], 'Position', [1180 670 1310 730]);
+set_param([model '/Root_FeedbackInt'], 'Position', [805 376 935 436]);
 set_param([model '/Root_FeedbackInt'], 'InitialCondition', '0.0');
 
 % Step: Root_L2_Set_Point
 % Source trace: <Root>/L2 Set Point (certain)
 % C expression: process_PIConstrained_P.L2SetPoint_Y0
 add_block('simulink/Sources/Step', [model '/Root_L2_Set_Point'], 'MakeNameUnique', 'off');
-set_param([model '/Root_L2_Set_Point'], 'Position', [80 748 219 794]);
+set_param([model '/Root_L2_Set_Point'], 'Position', [80 432 219 478]);
 set_param([model '/Root_L2_Set_Point'], 'Time', '200.0');
 set_param([model '/Root_L2_Set_Point'], 'Before', '1.0');
 set_param([model '/Root_L2_Set_Point'], 'After', '1.0');
@@ -222,70 +222,70 @@ set_param([model '/Root_L2_Set_Point'], 'After', '1.0');
 % Source trace: <Root>/Sum (certain)
 % C expression: process_PIConstrained_B.L2SetPoint - process_PIConstrained_B.Saturation
 add_block('simulink/Math Operations/Sum', [model '/Root_Sum'], 'MakeNameUnique', 'off');
-set_param([model '/Root_Sum'], 'Position', [520 670 590 720]);
+set_param([model '/Root_Sum'], 'Position', [370 376 440 426]);
 set_param([model '/Root_Sum'], 'Inputs', '+-');
 
 % Gain: S1_Slider_Gain
 % Source trace: <S1>/Slider Gain (certain)
 % C expression: process_PIConstrained_P.L2ProportionalGain_gain * process_PIConstrained_B.Sum_k
 add_block('simulink/Math Operations/Gain', [model '/S1_Slider_Gain'], 'MakeNameUnique', 'off');
-set_param([model '/S1_Slider_Gain'], 'Position', [740 670 858 716]);
+set_param([model '/S1_Slider_Gain'], 'Position', [515 376 633 422]);
 set_param([model '/S1_Slider_Gain'], 'Gain', '-14.18');
 
 % Sum: Root_Sum2
 % Source trace: <Root>/Sum2 (certain)
 % C expression: process_PIConstrained_B.SliderGain + process_PIConstrained_B.FeedbackInt
 add_block('simulink/Math Operations/Sum', [model '/Root_Sum2'], 'MakeNameUnique', 'off');
-set_param([model '/Root_Sum2'], 'Position', [1400 670 1470 720]);
+set_param([model '/Root_Sum2'], 'Position', [950 376 1020 426]);
 set_param([model '/Root_Sum2'], 'Inputs', '++');
 
 % Sum: Root_Sum1
 % Source trace: <Root>/Sum1 (certain)
 % C expression: process_PIConstrained_P.F2_Value + process_PIConstrained_B.Sum2_oi
 add_block('simulink/Math Operations/Sum', [model '/Root_Sum1'], 'MakeNameUnique', 'off');
-set_param([model '/Root_Sum1'], 'Position', [1620 670 1690 720]);
+set_param([model '/Root_Sum1'], 'Position', [1095 376 1165 426]);
 set_param([model '/Root_Sum1'], 'Inputs', '++');
 
 % Gain: Root_Ti
 % Source trace: <Root>/Ti (certain)
 % C expression: process_PIConstrained_P.Ti_Gain * process_PIConstrained_B.SliderGain
 add_block('simulink/Math Operations/Gain', [model '/Root_Ti'], 'MakeNameUnique', 'off');
-set_param([model '/Root_Ti'], 'Position', [960 670 1040 716]);
+set_param([model '/Root_Ti'], 'Position', [660 376 740 422]);
 set_param([model '/Root_Ti'], 'Gain', '0.052826201796090863');
 
 % Gain: S7_Gain4
 % Source trace: <S7>/Gain4 (certain)
 % C expression: process_PIConstrained_P.Gain4_Gain * process_PIConstrained_B.Saturation1
 add_block('simulink/Math Operations/Gain', [model '/S7_Gain4'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Gain4'], 'Position', [520 4030 600 4076]);
+set_param([model '/S7_Gain4'], 'Position', [225 2276 305 2322]);
 set_param([model '/S7_Gain4'], 'Gain', '0.507');
 
 % Sum: S7_Sum3
 % Source trace: <S7>/Sum3 (certain)
 % C expression: process_PIConstrained_B.Gain4 + process_PIConstrained_P.Constant1_Value_i
 add_block('simulink/Math Operations/Sum', [model '/S7_Sum3'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Sum3'], 'Position', [740 4030 810 4080]);
+set_param([model '/S7_Sum3'], 'Position', [370 2276 440 2326]);
 set_param([model '/S7_Sum3'], 'Inputs', '++');
 
 % Sum: S4_Sum
 % Source trace: <S4>/Sum (certain)
 % C expression: process_PIConstrained_B.Sum3 - process_PIConstrained_P.T200_Value
 add_block('simulink/Math Operations/Sum', [model '/S4_Sum'], 'MakeNameUnique', 'off');
-set_param([model '/S4_Sum'], 'Position', [960 2350 1030 2400]);
+set_param([model '/S4_Sum'], 'Position', [370 1382 440 1432]);
 set_param([model '/S4_Sum'], 'Inputs', '+-');
 
 % Gain: S4_Gain
 % Source trace: <S4>/Gain (certain)
 % C expression: process_PIConstrained_P.Gain_Gain_h * process_PIConstrained_B.Sum_d
 add_block('simulink/Math Operations/Gain', [model '/S4_Gain'], 'MakeNameUnique', 'off');
-set_param([model '/S4_Gain'], 'Position', [1180 2350 1260 2396]);
+set_param([model '/S4_Gain'], 'Position', [515 1382 595 1428]);
 set_param([model '/S4_Gain'], 'Gain', '6.84');
 
 % Saturation: S2_Saturation6
 % Source trace: <S2>/Saturation6 (certain)
 % C expression: (process_PIConstrained_P.Saturation6_UpperSat)
 add_block('simulink/Discontinuities/Saturation', [model '/S2_Saturation6'], 'MakeNameUnique', 'off');
-set_param([model '/S2_Saturation6'], 'Position', [300 1868 410 1918]);
+set_param([model '/S2_Saturation6'], 'Position', [80 992 190 1042]);
 set_param([model '/S2_Saturation6'], 'LowerLimit', '0.0');
 set_param([model '/S2_Saturation6'], 'UpperLimit', '416.0');
 
@@ -293,42 +293,42 @@ set_param([model '/S2_Saturation6'], 'UpperLimit', '416.0');
 % Source trace: <S4>/Product (certain)
 % C expression: process_PIConstrained_P.Constant_Value_c / process_PIConstrained_P.Constant1_Value_h / process_PIConstrained_B.Saturation6
 add_block('simulink/Math Operations/Product', [model '/S4_Product'], 'MakeNameUnique', 'off');
-set_param([model '/S4_Product'], 'Position', [520 2350 590 2400]);
+set_param([model '/S4_Product'], 'Position', [80 1382 150 1432]);
 set_param([model '/S4_Product'], 'Inputs', '*//');
 
 % Sum: S4_Sum1
 % Source trace: <S4>/Sum1 (certain)
 % C expression: process_PIConstrained_P.Constant2_Value + process_PIConstrained_B.Product_k
 add_block('simulink/Math Operations/Sum', [model '/S4_Sum1'], 'MakeNameUnique', 'off');
-set_param([model '/S4_Sum1'], 'Position', [740 2350 810 2400]);
+set_param([model '/S4_Sum1'], 'Position', [225 1382 295 1432]);
 set_param([model '/S4_Sum1'], 'Inputs', '++');
 
 % Product: S4_Product1
 % Source trace: <S4>/Product1 (certain)
 % C expression: process_PIConstrained_B.Gain_c / process_PIConstrained_B.Sum1_h
 add_block('simulink/Math Operations/Product', [model '/S4_Product1'], 'MakeNameUnique', 'off');
-set_param([model '/S4_Product1'], 'Position', [1400 2350 1470 2400]);
+set_param([model '/S4_Product1'], 'Position', [660 1382 730 1432]);
 set_param([model '/S4_Product1'], 'Inputs', '*/');
 
 % Gain: S4_Gain1
 % Source trace: <S4>/Gain1 (certain)
 % C expression: process_PIConstrained_P.Gain1_Gain_l * process_PIConstrained_B.Q200
 add_block('simulink/Math Operations/Gain', [model '/S4_Gain1'], 'MakeNameUnique', 'off');
-set_param([model '/S4_Gain1'], 'Position', [1620 2350 1700 2396]);
+set_param([model '/S4_Gain1'], 'Position', [805 1382 885 1428]);
 set_param([model '/S4_Gain1'], 'Gain', '0.025974025974025976');
 
 % Integrator: S3_Integrator
 % Source trace: <S3>/Integrator (certain)
 % C expression: process_PIConstrained_B.Gain_b
 add_block('simulink/Continuous/Integrator', [model '/S3_Integrator'], 'MakeNameUnique', 'off');
-set_param([model '/S3_Integrator'], 'Position', [2280 1230 2410 1290]);
+set_param([model '/S3_Integrator'], 'Position', [370 656 500 716]);
 set_param([model '/S3_Integrator'], 'InitialCondition', '0.0');
 
 % Saturation: S2_Saturation3
 % Source trace: <S2>/Saturation3 (certain)
 % C expression: (process_PIConstrained_P.Saturation3_UpperSat)
 add_block('simulink/Discontinuities/Saturation', [model '/S2_Saturation3'], 'MakeNameUnique', 'off');
-set_param([model '/S2_Saturation3'], 'Position', [2500 1790 2610 1840]);
+set_param([model '/S2_Saturation3'], 'Position', [1530 936 1640 986]);
 set_param([model '/S2_Saturation3'], 'LowerLimit', '0.0');
 set_param([model '/S2_Saturation3'], 'UpperLimit', '4.0');
 
@@ -336,7 +336,7 @@ set_param([model '/S2_Saturation3'], 'UpperLimit', '4.0');
 % Source trace: <S2>/Saturation5 (certain)
 % C expression: (process_PIConstrained_P.Saturation5_UpperSat)
 add_block('simulink/Discontinuities/Saturation', [model '/S2_Saturation5'], 'MakeNameUnique', 'off');
-set_param([model '/S2_Saturation5'], 'Position', [1840 1790 1950 1840]);
+set_param([model '/S2_Saturation5'], 'Position', [1095 936 1205 986]);
 set_param([model '/S2_Saturation5'], 'LowerLimit', '0.0');
 set_param([model '/S2_Saturation5'], 'UpperLimit', '16.0');
 
@@ -344,21 +344,21 @@ set_param([model '/S2_Saturation5'], 'UpperLimit', '16.0');
 % Source trace: <S5>/Sum (certain)
 % C expression: (process_PIConstrained_B.F1_Step - process_PIConstrained_B.Saturation3) - process_PIConstrained_B.Saturation4
 add_block('simulink/Math Operations/Sum', [model '/S5_Sum'], 'MakeNameUnique', 'off');
-set_param([model '/S5_Sum'], 'Position', [5580 2910 5650 2960]);
+set_param([model '/S5_Sum'], 'Position', [80 1662 150 1712]);
 set_param([model '/S5_Sum'], 'Inputs', '+--');
 
 % Gain: S5_Gain
 % Source trace: <S5>/Gain (certain)
 % C expression: process_PIConstrained_P.Gain_Gain_k * process_PIConstrained_B.Sum_m
 add_block('simulink/Math Operations/Gain', [model '/S5_Gain'], 'MakeNameUnique', 'off');
-set_param([model '/S5_Gain'], 'Position', [5800 2910 5880 2956]);
+set_param([model '/S5_Gain'], 'Position', [225 1662 305 1708]);
 set_param([model '/S5_Gain'], 'Gain', '0.05');
 
 % Step: Root_X1_Step
 % Source trace: <Root>/X1_Step (certain)
 % C expression: process_PIConstrained_P.X1_Step_Y0
 add_block('simulink/Sources/Step', [model '/Root_X1_Step'], 'MakeNameUnique', 'off');
-set_param([model '/Root_X1_Step'], 'Position', [80 826 184 872]);
+set_param([model '/Root_X1_Step'], 'Position', [80 488 184 534]);
 set_param([model '/Root_X1_Step'], 'Time', '200.0');
 set_param([model '/Root_X1_Step'], 'Before', '5.0');
 set_param([model '/Root_X1_Step'], 'After', '35.0');
@@ -367,35 +367,35 @@ set_param([model '/Root_X1_Step'], 'After', '35.0');
 % Source trace: <S7>/Product (certain)
 % C expression: process_PIConstrained_B.F1_Step * process_PIConstrained_B.X1_Step
 add_block('simulink/Math Operations/Product', [model '/S7_Product'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Product'], 'Position', [300 4030 370 4080]);
+set_param([model '/S7_Product'], 'Position', [80 2276 150 2326]);
 set_param([model '/S7_Product'], 'Inputs', '**');
 
 % Product: S7_Product1
 % Source trace: <S7>/Product1 (certain)
 % C expression: process_PIConstrained_B.Saturation3 * process_PIConstrained_B.X2Int
 add_block('simulink/Math Operations/Product', [model '/S7_Product1'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Product1'], 'Position', [2720 4030 2790 4080]);
+set_param([model '/S7_Product1'], 'Position', [1675 2276 1745 2326]);
 set_param([model '/S7_Product1'], 'Inputs', '**');
 
 % Sum: S7_Sum
 % Source trace: <S7>/Sum (certain)
 % C expression: process_PIConstrained_B.Product_c - process_PIConstrained_B.Product1
 add_block('simulink/Math Operations/Sum', [model '/S7_Sum'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Sum'], 'Position', [2940 4108 3010 4158]);
+set_param([model '/S7_Sum'], 'Position', [80 2500 150 2550]);
 set_param([model '/S7_Sum'], 'Inputs', '+-');
 
 % Gain: S7_Gain
 % Source trace: <S7>/Gain (certain)
 % C expression: process_PIConstrained_P.Gain_Gain_n * process_PIConstrained_B.Sum_i
 add_block('simulink/Math Operations/Gain', [model '/S7_Gain'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Gain'], 'Position', [3160 4030 3240 4076]);
+set_param([model '/S7_Gain'], 'Position', [225 2444 305 2490]);
 set_param([model '/S7_Gain'], 'Gain', '0.05');
 
 % Saturation: S7_Saturation2
 % Source trace: <S7>/Saturation2 (certain)
 % C expression: (process_PIConstrained_P.Saturation2_UpperSat_l)
 add_block('simulink/Discontinuities/Saturation', [model '/S7_Saturation2'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Saturation2'], 'Position', [520 4108 630 4158]);
+set_param([model '/S7_Saturation2'], 'Position', [225 2332 335 2382]);
 set_param([model '/S7_Saturation2'], 'LowerLimit', '0.0');
 set_param([model '/S7_Saturation2'], 'UpperLimit', '16.0');
 
@@ -403,100 +403,100 @@ set_param([model '/S7_Saturation2'], 'UpperLimit', '16.0');
 % Source trace: <S7>/Sum1 (certain)
 % C expression: process_PIConstrained_B.Saturation2_e - process_PIConstrained_B.Saturation5
 add_block('simulink/Math Operations/Sum', [model '/S7_Sum1'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Sum1'], 'Position', [2060 4030 2130 4080]);
+set_param([model '/S7_Sum1'], 'Position', [1240 2276 1310 2326]);
 set_param([model '/S7_Sum1'], 'Inputs', '+-');
 
 % Gain: S7_Gain1
 % Source trace: <S7>/Gain1 (certain)
 % C expression: process_PIConstrained_P.Gain1_Gain_m * process_PIConstrained_B.Sum1_e
 add_block('simulink/Math Operations/Gain', [model '/S7_Gain1'], 'MakeNameUnique', 'off');
-set_param([model '/S7_Gain1'], 'Position', [2280 4030 2360 4076]);
+set_param([model '/S7_Gain1'], 'Position', [1385 2276 1465 2322]);
 set_param([model '/S7_Gain1'], 'Gain', '0.25');
 
 % Sum: S3_Sum
 % Source trace: <S3>/Sum (certain)
 % C expression: process_PIConstrained_B.Sum1_g - process_PIConstrained_B.Integrator
 add_block('simulink/Math Operations/Sum', [model '/S3_Sum'], 'MakeNameUnique', 'off');
-set_param([model '/S3_Sum'], 'Position', [1840 1230 1910 1280]);
+set_param([model '/S3_Sum'], 'Position', [80 656 150 706]);
 set_param([model '/S3_Sum'], 'Inputs', '+-');
 
 % Gain: S3_Gain
 % Source trace: <S3>/Gain (certain)
 % C expression: process_PIConstrained_P.Gain_Gain_hu * process_PIConstrained_B.Sum_iw
 add_block('simulink/Math Operations/Gain', [model '/S3_Gain'], 'MakeNameUnique', 'off');
-set_param([model '/S3_Gain'], 'Position', [2060 1230 2140 1276]);
+set_param([model '/S3_Gain'], 'Position', [225 656 305 702]);
 set_param([model '/S3_Gain'], 'Gain', '0.83333333333333337');
 
 % Constant: inferred_Const_F3_Value
 % Source trace: <Root>/F3 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_F3_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_F3_Value'], 'Position', [80 5214 230 5260]);
+set_param([model '/inferred_Const_F3_Value'], 'Position', [80 3114 230 3160]);
 set_param([model '/inferred_Const_F3_Value'], 'Value', '50.0');
 
 % Constant: inferred_Const_P100_Value
 % Source trace: <Root>/P100 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_P100_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_P100_Value'], 'Position', [80 5292 230 5338]);
+set_param([model '/inferred_Const_P100_Value'], 'Position', [80 3170 230 3216]);
 set_param([model '/inferred_Const_P100_Value'], 'Value', '194.7');
 
 % Constant: inferred_Const_Constant1_Value
 % Source trace: <S6>/Constant1 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_Constant1_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_Constant1_Value'], 'Position', [80 4590 230 4636]);
+set_param([model '/inferred_Const_Constant1_Value'], 'Position', [80 2666 230 2712]);
 set_param([model '/inferred_Const_Constant1_Value'], 'Value', '90.0');
 
 % Constant: inferred_Const_Constant_Value
 % Source trace: <S7>/Constant (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_Constant_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_Constant_Value'], 'Position', [80 4902 230 4948]);
+set_param([model '/inferred_Const_Constant_Value'], 'Position', [80 2890 230 2936]);
 set_param([model '/inferred_Const_Constant_Value'], 'Value', '48.43');
 
 % Constant: inferred_Const_T1_Value
 % Source trace: <Root>/T1 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_T1_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_T1_Value'], 'Position', [80 5370 230 5416]);
+set_param([model '/inferred_Const_T1_Value'], 'Position', [80 3226 230 3272]);
 set_param([model '/inferred_Const_T1_Value'], 'Value', '40.0');
 
 % Constant: inferred_Const_F2_Value
 % Source trace: <Root>/F2 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_F2_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_F2_Value'], 'Position', [80 5136 230 5182]);
+set_param([model '/inferred_Const_F2_Value'], 'Position', [80 3058 230 3104]);
 set_param([model '/inferred_Const_F2_Value'], 'Value', '2.0');
 
 % Constant: inferred_Const_Constant1_Value_i
 % Source trace: <S7>/Constant1 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_Constant1_Value_i'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_Constant1_Value_i'], 'Position', [80 4746 230 4792]);
+set_param([model '/inferred_Const_Constant1_Value_i'], 'Position', [80 2778 230 2824]);
 set_param([model '/inferred_Const_Constant1_Value_i'], 'Value', '55.0');
 
 % Constant: inferred_Const_T200_Value
 % Source trace: <Root>/T200 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_T200_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_T200_Value'], 'Position', [80 5448 230 5494]);
+set_param([model '/inferred_Const_T200_Value'], 'Position', [80 3282 230 3328]);
 set_param([model '/inferred_Const_T200_Value'], 'Value', '25.0');
 
 % Constant: inferred_Const_F200_Value
 % Source trace: <Root>/F200 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_F200_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_F200_Value'], 'Position', [80 5058 230 5104]);
+set_param([model '/inferred_Const_F200_Value'], 'Position', [80 3002 230 3048]);
 set_param([model '/inferred_Const_F200_Value'], 'Value', '208.0');
 
 % Constant: inferred_Const_Constant_Value_c
 % Source trace: <S4>/Constant (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_Constant_Value_c'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_Constant_Value_c'], 'Position', [80 4980 230 5026]);
+set_param([model '/inferred_Const_Constant_Value_c'], 'Position', [80 2946 230 2992]);
 set_param([model '/inferred_Const_Constant_Value_c'], 'Value', '6.84');
 
 % Constant: inferred_Const_Constant1_Value_h
 % Source trace: <S4>/Constant1 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_Constant1_Value_h'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_Constant1_Value_h'], 'Position', [80 4668 230 4714]);
+set_param([model '/inferred_Const_Constant1_Value_h'], 'Position', [80 2722 230 2768]);
 set_param([model '/inferred_Const_Constant1_Value_h'], 'Value', '0.14');
 
 % Constant: inferred_Const_Constant2_Value
 % Source trace: <S4>/Constant2 (inferred)
 add_block('simulink/Sources/Constant', [model '/inferred_Const_Constant2_Value'], 'MakeNameUnique', 'off');
-set_param([model '/inferred_Const_Constant2_Value'], 'Position', [80 4824 230 4870]);
+set_param([model '/inferred_Const_Constant2_Value'], 'Position', [80 2834 230 2880]);
 set_param([model '/inferred_Const_Constant2_Value'], 'Value', '1.0');
 
 
@@ -890,8 +890,8 @@ end
 
 % Validate expected top-level block and signal-line counts.
 fprintf('[validation] Checking top-level block and signal-line counts.\n');
-actualBlockCount = numel(find_system(model, 'SearchDepth', 1, 'Type', 'Block'));
-actualLineCount = numel(find_system(model, 'FindAll', 'on', 'SearchDepth', 1, 'Type', 'line'));
+actualBlockCount = numel(find_system(model, 'Type', 'Block'));
+actualLineCount = numel(find_system(model, 'FindAll', 'on', 'Type', 'line'));
 if actualBlockCount ~= expectedBlockCount
     warning('Expected %d blocks, but found %d.', expectedBlockCount, actualBlockCount);
 end

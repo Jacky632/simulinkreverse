@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import defaultdict
 from pathlib import Path
 import logging
 
@@ -48,6 +49,9 @@ class MatlabWriter:
         LOGGER.info("Wrote MATLAB builder script: %s", output_path)
 
     def render(self, ir: ModelIR) -> str:
+        if ir.metadata.get("layout_key") in {"simple_subsystems", "complex_subsystems"}:
+            return self._render_subsystem_model(ir)
+
         lines: list[str] = []
         lines.extend(self._header(ir))
         lines.extend(self._model_creation(ir))
@@ -150,12 +154,20 @@ class MatlabWriter:
         ]
 
     def _render_block(self, block: BlockIR) -> list[str]:
+        block_path_expr = f"[model '/{self._escape_single(block.name)}']"
+        return self._render_block_at(block, block_path_expr, block.position)
+
+    def _render_block_at(
+        self,
+        block: BlockIR,
+        block_path_expr: str,
+        position: tuple[int, int, int, int] | None,
+    ) -> list[str]:
         if block.block_type == "Annotation":
             return []
         library = self.LIBRARY_BLOCKS.get(block.block_type)
         if not library:
             library = "simulink/User-Defined Functions/MATLAB Function"
-        block_path_expr = f"[model '/{self._escape_single(block.name)}']"
         lines = [
             f"% {block.block_type}: {block.name}",
         ]
@@ -167,8 +179,8 @@ class MatlabWriter:
             f"add_block({self._mstring(library)}, {block_path_expr}, "
             "'MakeNameUnique', 'off');"
         )
-        if block.position:
-            pos = " ".join(str(part) for part in block.position)
+        if position:
+            pos = " ".join(str(part) for part in position)
             lines.append(f"set_param({block_path_expr}, 'Position', [{pos}]);")
         for key, value in block.parameters.items():
             matlab_key = self.PARAM_MAP.get(key)
@@ -185,12 +197,496 @@ class MatlabWriter:
         lines.append("")
         return lines
 
+    def _render_subsystem_model(self, ir: ModelIR) -> str:
+        plan = self._build_subsystem_plan(ir)
+        lines: list[str] = []
+        lines.extend(self._header(ir))
+        lines.extend(self._subsystem_model_creation(ir, plan))
+        lines.append("% Add top-level interface blocks.")
+        for block in plan["top_blocks"]:
+            lines.extend(
+                self._render_block_at(
+                    block,
+                    f"[model '/{self._escape_single(block.name)}']",
+                    plan["top_block_positions"].get(block.id, block.position),
+                )
+            )
+
+        lines.append("% Add preferred subsystem shells.")
+        for group in plan["groups"]:
+            pos = " ".join(str(part) for part in plan["subsystem_positions"][group])
+            lines.append(f"% Subsystem: {group}")
+            lines.append(
+                f"add_block('simulink/Ports & Subsystems/Subsystem', "
+                f"[model '/{self._escape_single(group)}'], 'MakeNameUnique', 'off');"
+            )
+            lines.append(f"set_param([model '/{self._escape_single(group)}'], 'Position', [{pos}]);")
+            lines.append(f"try, delete_block([model '/{self._escape_single(group)}/In1']); catch, end")
+            lines.append(f"try, delete_block([model '/{self._escape_single(group)}/Out1']); catch, end")
+            lines.append("")
+
+        lines.append("% Populate subsystem contents.")
+        for group in plan["groups"]:
+            group_path = f"[model '/{self._escape_single(group)}']"
+            for port in plan["input_ports"][group]:
+                lines.extend(
+                    self._render_port_block(
+                        group,
+                        port["name"],
+                        "Inport",
+                        port["index"],
+                        port["position"],
+                    )
+                )
+            for port in plan["output_ports"][group]:
+                lines.extend(
+                    self._render_port_block(
+                        group,
+                        port["name"],
+                        "Outport",
+                        port["index"],
+                        port["position"],
+                    )
+                )
+            for block in plan["group_blocks"][group]:
+                lines.extend(
+                    self._render_block_at(
+                        block,
+                        f"[model '/{self._escape_single(group)}/{self._escape_single(block.name)}']",
+                        plan["internal_positions"][block.id],
+                    )
+                )
+
+        lines.append("% Connect internal subsystem signal dependencies.")
+        lines.append(
+            "fprintf('[connection] Creating %d generated signal lines, including subsystem bridge lines.\\n', expectedLineCount);"
+        )
+        for group in plan["groups"]:
+            group_path = f"[model '/{self._escape_single(group)}']"
+            for line in plan["internal_lines"][group]:
+                lines.extend(
+                    self._render_add_line(
+                        group_path,
+                        line["src"],
+                        line["dst"],
+                        line["warn_src"],
+                        line["warn_dst"],
+                    )
+                )
+
+        lines.append("% Connect top-level subsystem and interface signals.")
+        for line in plan["top_lines"]:
+            lines.extend(
+                self._render_add_line(
+                    "model",
+                    line["src"],
+                    line["dst"],
+                    line["warn_src"],
+                    line["warn_dst"],
+                )
+            )
+
+        lines.append("")
+        lines.extend(self._render_validation())
+        lines.extend(self._render_annotations(ir))
+        lines.append("fprintf('[save] Saving model to %s.slx.\\n', model);")
+        lines.append("save_system(model);")
+        lines.append(
+            "fprintf('[summary] Blocks: %d; signal lines: %d; model: %s; layout: %s.\\n', "
+            "actualBlockCount, actualLineCount, model, layoutStrategy);"
+        )
+        lines.append("")
+        return "\n".join(lines)
+
+    def _subsystem_model_creation(self, ir: ModelIR, plan: dict) -> list[str]:
+        model = self._mstring(ir.model_name)
+        original = self._mstring(ir.original_model_name or "unknown")
+        layout_strategy = self._mstring(
+            ir.metadata.get("layout_strategy", "Subsystem preferred")
+        )
+        layout_description = self._mstring(
+            ir.metadata.get(
+                "layout_description",
+                "Blocks are grouped into preferred subsystems with bridge ports.",
+            )
+        )
+        original_blocks = len([block for block in ir.blocks if block.block_type != "Annotation"])
+        inferred_count = len(
+            [
+                block
+                for block in ir.blocks
+                if block.block_type != "Annotation" and block.certainty == "inferred"
+            ]
+        )
+        direct_count = original_blocks - inferred_count
+        return [
+            f"model = {model};",
+            f"originalModelName = {original};",
+            f"layoutStrategy = {layout_strategy};",
+            f"layoutDescription = {layout_description};",
+            f"expectedBlockCount = {plan['generated_block_count']};",
+            f"expectedLineCount = {plan['generated_line_count']};",
+            f"directMappedBlockCount = {direct_count};",
+            f"inferredBlockCount = {inferred_count};",
+            f"originalRecoveredBlockCount = {original_blocks};",
+            f"subsystemCount = {len(plan['groups'])};",
+            "fprintf('[parsing] Replaying reconstruction facts parsed from Simulink Coder output for %s.\\n', originalModelName);",
+            "fprintf('[block creation] Creating %d generated blocks from %d recovered logic blocks.\\n', expectedBlockCount, originalRecoveredBlockCount);",
+            "fprintf('[inferred-block creation] Inferred logic block names include the word inferred.\\n');",
+            "fprintf('[layout] %s: %s\\n', layoutStrategy, layoutDescription);",
+            "fprintf('[layout] Preferred subsystem count: %d.\\n', subsystemCount);",
+            "if bdIsLoaded(model)",
+            "    close_system(model, 0);",
+            "end",
+            "if exist([model '.slx'], 'file')",
+            "    delete([model '.slx']);",
+            "end",
+            "new_system(model);",
+            "open_system(model);",
+            "",
+        ]
+
+    def _build_subsystem_plan(self, ir: ModelIR) -> dict:
+        mode = ir.metadata.get("layout_key", "simple_subsystems")
+        block_by_id = {block.id: block for block in ir.blocks}
+        block_group: dict[str, str | None] = {}
+        group_blocks: dict[str, list[BlockIR]] = defaultdict(list)
+        top_blocks: list[BlockIR] = []
+
+        for block in ir.blocks:
+            if block.block_type == "Annotation":
+                continue
+            group = self._subsystem_group_for_block(block, mode)
+            block_group[block.id] = group
+            if group is None:
+                top_blocks.append(block)
+            else:
+                group_blocks[group].append(block)
+
+        group_order = self._subsystem_group_order(mode)
+        groups = [group for group in group_order if group in group_blocks]
+        groups.extend(sorted(group for group in group_blocks if group not in groups))
+
+        input_ports: dict[str, list[dict]] = {group: [] for group in groups}
+        output_ports: dict[str, list[dict]] = {group: [] for group in groups}
+        internal_lines: dict[str, list[dict]] = {group: [] for group in groups}
+        top_lines: list[dict] = []
+
+        for conn in ir.connections:
+            src_group = block_group.get(conn.src)
+            dst_group = block_group.get(conn.dst)
+            if src_group == dst_group and src_group is not None:
+                internal_lines[src_group].append(
+                    self._line_dict(
+                        f"{block_by_id[conn.src].name}/1",
+                        f"{block_by_id[conn.dst].name}/{conn.dst_port}",
+                        block_by_id[conn.src].name,
+                        block_by_id[conn.dst].name,
+                    )
+                )
+                continue
+
+            if src_group is None:
+                src_endpoint = f"{block_by_id[conn.src].name}/1"
+                warn_src = block_by_id[conn.src].name
+            else:
+                out_index = len(output_ports[src_group]) + 1
+                out_name = self._unique_port_name(
+                    "out", conn.signal or conn.src, out_index, output_ports[src_group]
+                )
+                output_ports[src_group].append(
+                    {"name": out_name, "index": out_index, "source": conn.src}
+                )
+                internal_lines[src_group].append(
+                    self._line_dict(
+                        f"{block_by_id[conn.src].name}/1",
+                        f"{out_name}/1",
+                        block_by_id[conn.src].name,
+                        out_name,
+                    )
+                )
+                src_endpoint = f"{src_group}/{out_index}"
+                warn_src = src_group
+
+            if dst_group is None:
+                dst_endpoint = f"{block_by_id[conn.dst].name}/{conn.dst_port}"
+                warn_dst = block_by_id[conn.dst].name
+            else:
+                in_index = len(input_ports[dst_group]) + 1
+                in_name = self._unique_port_name(
+                    "in", conn.signal or conn.dst, in_index, input_ports[dst_group]
+                )
+                input_ports[dst_group].append(
+                    {"name": in_name, "index": in_index, "dest": conn.dst}
+                )
+                internal_lines[dst_group].append(
+                    self._line_dict(
+                        f"{in_name}/1",
+                        f"{block_by_id[conn.dst].name}/{conn.dst_port}",
+                        in_name,
+                        block_by_id[conn.dst].name,
+                    )
+                )
+                dst_endpoint = f"{dst_group}/{in_index}"
+                warn_dst = dst_group
+
+            top_lines.append(self._line_dict(src_endpoint, dst_endpoint, warn_src, warn_dst))
+
+        subsystem_positions = self._subsystem_positions(groups, mode)
+        top_block_positions = self._top_block_positions(top_blocks, mode)
+        internal_positions = self._internal_block_positions(group_blocks, internal_lines)
+        self._assign_port_positions(input_ports, output_ports, group_blocks, internal_positions)
+
+        generated_block_count = (
+            len(top_blocks)
+            + len(groups)
+            + sum(len(blocks) for blocks in group_blocks.values())
+            + sum(len(ports) for ports in input_ports.values())
+            + sum(len(ports) for ports in output_ports.values())
+        )
+        generated_line_count = len(top_lines) + sum(len(lines) for lines in internal_lines.values())
+
+        return {
+            "groups": groups,
+            "group_blocks": group_blocks,
+            "top_blocks": top_blocks,
+            "input_ports": input_ports,
+            "output_ports": output_ports,
+            "internal_lines": internal_lines,
+            "top_lines": top_lines,
+            "subsystem_positions": subsystem_positions,
+            "top_block_positions": top_block_positions,
+            "internal_positions": internal_positions,
+            "generated_block_count": generated_block_count,
+            "generated_line_count": generated_line_count,
+        }
+
+    def _subsystem_group_for_block(self, block: BlockIR, mode: str) -> str | None:
+        if block.block_type in {"Inport", "Outport"}:
+            return None
+        if block.certainty == "inferred":
+            return "Inferred_Parameters"
+        ref = block.source_ref or ""
+        if mode == "simple_subsystems":
+            if ref.startswith("<Root>") or ref.startswith("<S1>") or ref.startswith("<S3>"):
+                return "Controller_Delay"
+            if ref.startswith(("<S2>", "<S4>", "<S5>", "<S6>", "<S7>")):
+                return "Plant_Process"
+            return "Other_Logic"
+
+        if ref.startswith("<Root>") or ref.startswith("<S1>"):
+            return "Root_Controller"
+        if ref.startswith("<S3>"):
+            return "Delay"
+        if ref.startswith("<S2>"):
+            return "Whole_Process"
+        if ref.startswith("<S4>"):
+            return "Condenser"
+        if ref.startswith("<S5>"):
+            return "Separator"
+        if ref.startswith("<S6>"):
+            return "Steamjacket"
+        if ref.startswith("<S7>"):
+            return "Evaporator"
+        return "Other_Logic"
+
+    @staticmethod
+    def _subsystem_group_order(mode: str) -> list[str]:
+        if mode == "simple_subsystems":
+            return ["Controller_Delay", "Plant_Process", "Inferred_Parameters", "Other_Logic"]
+        return [
+            "Root_Controller",
+            "Delay",
+            "Whole_Process",
+            "Condenser",
+            "Separator",
+            "Steamjacket",
+            "Evaporator",
+            "Inferred_Parameters",
+            "Other_Logic",
+        ]
+
+    def _subsystem_positions(self, groups: list[str], mode: str) -> dict[str, tuple[int, int, int, int]]:
+        positions: dict[str, tuple[int, int, int, int]] = {}
+        if mode == "simple_subsystems":
+            coords = {
+                "Controller_Delay": (160, 100),
+                "Plant_Process": (430, 100),
+                "Inferred_Parameters": (160, 250),
+                "Other_Logic": (430, 250),
+            }
+            for index, group in enumerate(groups):
+                x, y = coords.get(group, (160 + (index % 2) * 270, 100 + (index // 2) * 150))
+                positions[group] = (x, y, x + 170, y + 74)
+            return positions
+
+        for index, group in enumerate(groups):
+            col = index % 3
+            row = index // 3
+            x = 150 + col * 240
+            y = 95 + row * 135
+            positions[group] = (x, y, x + 175, y + 72)
+        return positions
+
+    @staticmethod
+    def _top_block_positions(
+        top_blocks: list[BlockIR], mode: str
+    ) -> dict[str, tuple[int, int, int, int]]:
+        positions: dict[str, tuple[int, int, int, int]] = {}
+        for index, block in enumerate(sorted(top_blocks, key=lambda item: (item.block_type, item.name))):
+            if block.block_type == "Inport":
+                x, y = 35, 90 + index * 70
+            elif block.block_type == "Outport":
+                x, y = (840 if mode == "complex_subsystems" else 700), 110 + index * 70
+            else:
+                x, y = 35, 90 + index * 70
+            width, height = (70, 32) if block.block_type in {"Inport", "Outport"} else (110, 45)
+            positions[block.id] = (x, y, x + width, y + height)
+        return positions
+
+    def _internal_block_positions(
+        self,
+        group_blocks: dict[str, list[BlockIR]],
+        internal_lines: dict[str, list[dict]],
+    ) -> dict[str, tuple[int, int, int, int]]:
+        positions: dict[str, tuple[int, int, int, int]] = {}
+        for group, blocks in group_blocks.items():
+            block_ids = {block.id for block in blocks}
+            incoming: dict[str, list[str]] = defaultdict(list)
+            for line in internal_lines[group]:
+                src_name = line["warn_src"]
+                dst_name = line["warn_dst"]
+                src_id = next((block.id for block in blocks if block.name == src_name), None)
+                dst_id = next((block.id for block in blocks if block.name == dst_name), None)
+                if src_id and dst_id:
+                    incoming[dst_id].append(src_id)
+
+            depths: dict[str, int] = {}
+
+            def depth(block_id: str, visiting: set[str]) -> int:
+                if block_id in depths:
+                    return depths[block_id]
+                if block_id in visiting:
+                    depths[block_id] = 1
+                    return 1
+                visiting.add(block_id)
+                sources = [src for src in incoming.get(block_id, []) if src in block_ids]
+                value = 0 if not sources else 1 + max(depth(src, visiting) for src in sources)
+                visiting.remove(block_id)
+                depths[block_id] = value
+                return value
+
+            for block in blocks:
+                depth(block.id, set())
+
+            max_columns = 10
+            slot_counts: dict[tuple[int, int], int] = defaultdict(int)
+            for block in blocks:
+                d = depths.get(block.id, 0)
+                slot_counts[(d // max_columns, d % max_columns)] += 1
+            band_heights: dict[int, int] = defaultdict(int)
+            for (band, _column), count in slot_counts.items():
+                band_heights[band] = max(band_heights[band], count)
+            band_offsets: dict[int, int] = {}
+            row_cursor = 0
+            for band in sorted(band_heights):
+                band_offsets[band] = row_cursor
+                row_cursor += band_heights[band] + 1
+
+            lanes_by_slot: dict[tuple[int, int], int] = defaultdict(int)
+            for block in sorted(blocks, key=lambda item: (depths.get(item.id, 0), item.name)):
+                d = depths.get(block.id, 0)
+                band = d // max_columns
+                column = d % max_columns
+                lane = lanes_by_slot[(band, column)]
+                lanes_by_slot[(band, column)] += 1
+                row = band_offsets[band] + lane
+                width, height = self._block_size(block.block_type, block.name)
+                x1 = 160 + column * 125
+                y1 = 70 + row * 54
+                positions[block.id] = (x1, y1, x1 + width, y1 + height)
+        return positions
+
+    def _assign_port_positions(
+        self,
+        input_ports: dict[str, list[dict]],
+        output_ports: dict[str, list[dict]],
+        group_blocks: dict[str, list[BlockIR]],
+        internal_positions: dict[str, tuple[int, int, int, int]],
+    ) -> None:
+        for group, ports in input_ports.items():
+            for index, port in enumerate(ports):
+                y = 60 + index * 42
+                port["position"] = (30, y, 60, y + 18)
+        for group, ports in output_ports.items():
+            max_x = 360
+            for block in group_blocks[group]:
+                pos = internal_positions.get(block.id)
+                if pos:
+                    max_x = max(max_x, pos[2] + 110)
+            for index, port in enumerate(ports):
+                y = 60 + index * 42
+                port["position"] = (max_x, y, max_x + 35, y + 18)
+
+    def _render_port_block(
+        self,
+        group: str,
+        name: str,
+        block_type: str,
+        port: int,
+        position: tuple[int, int, int, int],
+    ) -> list[str]:
+        library = "simulink/Sources/In1" if block_type == "Inport" else "simulink/Sinks/Out1"
+        path = f"[model '/{self._escape_single(group)}/{self._escape_single(name)}']"
+        pos = " ".join(str(part) for part in position)
+        return [
+            f"% Subsystem {block_type}: {group}/{name}",
+            f"add_block({self._mstring(library)}, {path}, 'MakeNameUnique', 'off');",
+            f"set_param({path}, 'Position', [{pos}]);",
+            f"set_param({path}, 'Port', {self._mstring(str(port))});",
+            "",
+        ]
+
+    def _render_add_line(
+        self,
+        system_expr: str,
+        src: str,
+        dst: str,
+        warn_src: str,
+        warn_dst: str,
+    ) -> list[str]:
+        return [
+            "try",
+            f"    add_line({system_expr}, {self._mstring(src)}, {self._mstring(dst)}, 'autorouting', 'on');",
+            "catch ME",
+            "    warning('Could not add line %s -> %s: %s', "
+            f"{self._mstring(warn_src)}, {self._mstring(warn_dst)}, ME.message);",
+            "end",
+        ]
+
+    @staticmethod
+    def _line_dict(src: str, dst: str, warn_src: str, warn_dst: str) -> dict[str, str]:
+        return {"src": src, "dst": dst, "warn_src": warn_src, "warn_dst": warn_dst}
+
+    def _unique_port_name(
+        self, prefix: str, signal: str, index: int, existing_ports: list[dict]
+    ) -> str:
+        signal_name = signal.split(":", 1)[-1]
+        base = self._sanitize_block_name(f"{prefix}_{signal_name}")[:45]
+        existing = {port["name"] for port in existing_ports}
+        name = f"{base}_{index}"
+        suffix = index
+        while name in existing:
+            suffix += 1
+            name = f"{base}_{suffix}"
+        return name
+
     def _render_validation(self) -> list[str]:
         return [
             "% Validate expected top-level block and signal-line counts.",
             "fprintf('[validation] Checking top-level block and signal-line counts.\\n');",
-            "actualBlockCount = numel(find_system(model, 'SearchDepth', 1, 'Type', 'Block'));",
-            "actualLineCount = numel(find_system(model, 'FindAll', 'on', 'SearchDepth', 1, 'Type', 'line'));",
+            "actualBlockCount = numel(find_system(model, 'Type', 'Block'));",
+            "actualLineCount = numel(find_system(model, 'FindAll', 'on', 'Type', 'line'));",
             "if actualBlockCount ~= expectedBlockCount",
             "    warning('Expected %d blocks, but found %d.', expectedBlockCount, actualBlockCount);",
             "end",
@@ -246,3 +742,30 @@ class MatlabWriter:
         if len(value) <= limit:
             return value
         return value[: limit - 3] + "..."
+
+    @staticmethod
+    def _block_size(block_type: str, name: str) -> tuple[int, int]:
+        base_width = max(74, min(132, 18 + len(name) * 6))
+        if block_type in {"Inport", "Outport"}:
+            return (62, 28)
+        if block_type in {"Sum", "Product"}:
+            return (58, 42)
+        if block_type in {"Integrator", "Discrete-Time Integrator", "MATLAB Function"}:
+            return (112, 52)
+        if block_type == "Saturation":
+            return (96, 42)
+        return (base_width, 40)
+
+    @staticmethod
+    def _sanitize_block_name(name: str) -> str:
+        cleaned = []
+        for char in name:
+            cleaned.append(char if char.isalnum() or char == "_" else "_")
+        value = "".join(cleaned).strip("_")
+        while "__" in value:
+            value = value.replace("__", "_")
+        if not value:
+            value = "port"
+        if value[0].isdigit():
+            value = f"p_{value}"
+        return value

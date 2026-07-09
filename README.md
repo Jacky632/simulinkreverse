@@ -9,7 +9,7 @@ MATLAB script that builds an approximate Simulink model with API calls such as
 ```bash
 python main.py --input ccode --output generated_model_builder.m --model-name reconstructed_model
 
-python main.py --input ccode --output generated_model_builder.m --model-name reconstructed_model --verbose > reconstruction.log 2>&1 --generate-layout-variants
+python main.py --input ccode --output generated_model_builder.m --model-name reconstructed_model --verbose > reconstruction.log 2>&1
 ```
 
 Optional flags:
@@ -21,17 +21,21 @@ python main.py --input ccode --output generated_model_builder.m --model-name rec
 python main.py --input ccode --output generated_model_builder.m --generate-layout-variants
 ```
 
-The layout-variant command writes five independent MATLAB scripts:
+The layout-variant command writes seven independent MATLAB scripts:
 
 - `generated_model_builder_layout1_hierarchical.m`
 - `generated_model_builder_layout2_left_to_right_signal_flow.m`
 - `generated_model_builder_layout3_controller_plant_grouped.m`
 - `generated_model_builder_layout4_grid_aligned.m`
 - `generated_model_builder_layout5_subsystem_modular.m`
+- `generated_model_builder_layout6_simple_subsystems.m`
+- `generated_model_builder_layout7_complex_subsystems.m`
 
 Each variant saves a separate `.slx` model, prints generation progress in
-MATLAB, validates top-level block and signal-line counts, and includes the word
-`inferred` in inferred helper block names.
+MATLAB, validates generated block and signal-line counts, and includes the word
+`inferred` in inferred helper block names. Layouts 6 and 7 prefer actual
+subsystems; layout 6 uses a few coarse subsystems, while layout 7 uses a more
+granular subsystem decomposition.
 
 Run the generated script in MATLAB with Simulink installed:
 

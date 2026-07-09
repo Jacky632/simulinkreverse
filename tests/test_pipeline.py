@@ -37,8 +37,10 @@ def test_layout_variant_generation_sample(tmp_path):
         "generated_model_builder_layout3_controller_plant_grouped.m",
         "generated_model_builder_layout4_grid_aligned.m",
         "generated_model_builder_layout5_subsystem_modular.m",
+        "generated_model_builder_layout6_simple_subsystems.m",
+        "generated_model_builder_layout7_complex_subsystems.m",
     ]
-    assert len(results) == 5
+    assert len(results) == 7
     for name in expected:
         text = (tmp_path / name).read_text(encoding="utf-8")
         assert "[parsing]" in text

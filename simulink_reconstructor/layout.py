@@ -68,6 +68,27 @@ LAYOUT_VARIANTS = [
             "all original inferred logic at the top level for behavior fidelity."
         ),
     ),
+    LayoutVariant(
+        key="simple_subsystems",
+        script_name="generated_model_builder_layout6_simple_subsystems.m",
+        model_name="reconstructed_model_layout6_simple_subsystems",
+        title="Simple subsystem preferred",
+        description=(
+            "A compact top-level diagram uses a few coarse subsystems for "
+            "controller, plant/process, and inferred parameter helpers."
+        ),
+    ),
+    LayoutVariant(
+        key="complex_subsystems",
+        script_name="generated_model_builder_layout7_complex_subsystems.m",
+        model_name="reconstructed_model_layout7_complex_subsystems",
+        title="Complex subsystem preferred",
+        description=(
+            "A compact top-level diagram uses finer-grained subsystems for "
+            "controller, delay, process, condenser, separator, steamjacket, "
+            "evaporator, and inferred parameter helpers."
+        ),
+    ),
 ]
 
 
@@ -103,9 +124,10 @@ class LayoutEngine:
                     "Inferred",
                     "Other",
                 ],
-                x_spacing=230,
-                y_spacing=76,
-                group_spacing=520,
+                x_spacing=145,
+                y_spacing=56,
+                group_spacing=260,
+                max_depth_columns=12,
             )
         if self.strategy == "controller_plant_grouped":
             return self._apply_grouped_depth_layout(
@@ -122,10 +144,11 @@ class LayoutEngine:
                     "Inferred",
                     "Other",
                 ],
-                x_spacing=220,
-                y_spacing=78,
-                group_spacing=560,
+                x_spacing=145,
+                y_spacing=56,
+                group_spacing=280,
                 grouped_by_function=True,
+                max_depth_columns=12,
             )
         if self.strategy == "grid_aligned":
             return self._apply_grid_layout(ir)
@@ -143,11 +166,14 @@ class LayoutEngine:
                     "Inferred",
                     "Other",
                 ],
-                x_spacing=230,
-                y_spacing=72,
-                group_spacing=500,
+                x_spacing=145,
+                y_spacing=54,
+                group_spacing=260,
                 grouped_by_module=True,
+                max_depth_columns=12,
             )
+        if self.strategy in {"simple_subsystems", "complex_subsystems"}:
+            return self._apply_grid_layout(ir)
         return self._apply_left_to_right_layout(ir)
 
     def _apply_left_to_right_layout(self, ir: ModelIR) -> ModelIR:
@@ -176,6 +202,7 @@ class LayoutEngine:
         group_spacing: int,
         grouped_by_function: bool = False,
         grouped_by_module: bool = False,
+        max_depth_columns: int | None = None,
     ) -> ModelIR:
         depths = self._compute_depths(ir)
         grouped_blocks: dict[str, list[BlockIR]] = defaultdict(list)
@@ -190,20 +217,60 @@ class LayoutEngine:
 
         unknown_groups = sorted(group for group in grouped_blocks if group not in group_order)
         ordered_groups = [group for group in group_order if group in grouped_blocks] + unknown_groups
+        y_cursor = self.top
         for group_index, group in enumerate(ordered_groups):
             blocks = sorted(
                 grouped_blocks[group],
                 key=lambda block: (depths.get(block.id, 0), block.block_type, block.name),
             )
+            if not blocks:
+                continue
+            min_depth = min(depths.get(block.id, 0) for block in blocks)
+            depth_by_block = {
+                block.id: max(0, depths.get(block.id, 0) - min_depth) for block in blocks
+            }
+            if max_depth_columns:
+                slot_counts: dict[tuple[int, int], int] = defaultdict(int)
+                for block in blocks:
+                    depth = depth_by_block[block.id]
+                    slot_counts[(depth // max_depth_columns, depth % max_depth_columns)] += 1
+                band_heights: dict[int, int] = defaultdict(int)
+                for (band, _column), count in slot_counts.items():
+                    band_heights[band] = max(band_heights[band], count)
+                band_offsets: dict[int, int] = {}
+                row_cursor = 0
+                for band in sorted(band_heights):
+                    band_offsets[band] = row_cursor
+                    row_cursor += band_heights[band] + 1
+                lanes_by_slot: dict[tuple[int, int], int] = defaultdict(int)
+                max_row = 0
+                for block in blocks:
+                    depth = depth_by_block[block.id]
+                    band = depth // max_depth_columns
+                    column = depth % max_depth_columns
+                    lane = lanes_by_slot[(band, column)]
+                    lanes_by_slot[(band, column)] += 1
+                    row = band_offsets[band] + lane
+                    max_row = max(max_row, row)
+                    width, height = self._block_size(block.block_type, block.name)
+                    x1 = self.left + 40 + column * x_spacing
+                    y1 = y_cursor + 56 + row * y_spacing
+                    block.position = (x1, y1, x1 + width, y1 + height)
+                y_cursor += max(group_spacing, 110 + (max_row + 1) * y_spacing)
+                continue
+
             lanes_by_depth: dict[int, int] = defaultdict(int)
+            max_lane = 0
             for block in blocks:
-                depth = depths.get(block.id, 0)
+                depth = depth_by_block[block.id]
                 lane = lanes_by_depth[depth]
                 lanes_by_depth[depth] += 1
+                max_lane = max(max_lane, lane)
                 width, height = self._block_size(block.block_type, block.name)
                 x1 = self.left + 40 + depth * x_spacing
-                y1 = self.top + group_index * group_spacing + 70 + lane * y_spacing
+                y1 = y_cursor + 56 + lane * y_spacing
                 block.position = (x1, y1, x1 + width, y1 + height)
+            y_cursor += max(group_spacing, 110 + (max_lane + 1) * y_spacing)
         return ir
 
     def _apply_grid_layout(self, ir: ModelIR) -> ModelIR:
